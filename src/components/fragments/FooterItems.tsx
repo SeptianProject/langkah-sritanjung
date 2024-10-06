@@ -4,8 +4,8 @@ import FooterItem from "../elements/FooterItem"
 
 const FooterItems = () => {
      return (
-          <div className='flex flex-col lg:flex-row lg:gap-x-20 gap-y-10'>
-               <div className='flex lg:gap-x-20 justify-between'>
+          <div className='flex flex-col gap-y-10 md:flex-row md:justify-between xl:gap-x-5'>
+               <div className='flex w-full justify-between md:justify-start md:gap-x-20'>
                     <FooterItem
                          footerItems={{
                               item: {

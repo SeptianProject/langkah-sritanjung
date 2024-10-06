@@ -63,9 +63,9 @@ const CardText = () => {
                          </div>
                          : <Slider  {...settings} >
                               {textCardCategory.map((item, index) => (
-                                   <div key={index} className="text-center bg-blueCard w-full py-10 px-10 h-40 bg-opacity-15">
+                                   <div key={index} className="bg-blueCard text-center w-full py-6 lg:px-8 xl:px-16 bg-opacity-15">
                                         <h1 className="text-2xl font-bold">{item.title}</h1>
-                                        <p>{item.desc}</p>
+                                        <p className="text-base font-normal w-60 mt-2 mx-auto">{item.desc}</p>
                                    </div>
                               ))}
                          </Slider>

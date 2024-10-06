@@ -18,14 +18,17 @@ export const textNavbar = [
     {
         text: 'Beranda',
         link: '/',
+        select: false
     },
     {
         text: 'Destinasi',
-        link: '/destinasi'
+        link: '/destinasi',
+        select: false
     },
     {
         text: 'Tentang Kami',
-        link: '/tentang-kami'
+        link: '/tentang-kami',
+        select: false
     },
 ]
 
