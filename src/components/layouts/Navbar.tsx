@@ -44,7 +44,7 @@ const Navbar = () => {
     }, [location.pathname])
 
     return (
-        <nav ref={closeRef} className={`max-w-full w-full h-10 flex items-center gap-x-6 p-10 absolute z-10
+        <nav ref={closeRef} className={`max-w-full w-full h-10 flex items-center gap-x-6 p-10 absolute z-50
         md:py-12 md:px-20 ${isMobile ? 'justify-between' : 'justify-start'}`}>
             {isMobile
                 ?
@@ -55,9 +55,9 @@ const Navbar = () => {
                                 onClick={handleIsOpen}
                                 className='size-10 text-white' />
                             <div className='relative w-32 '>
-                                <div className='absolute top-2 flex flex-col text-center w-full overflow-hidden bg-white shadow-lg shadow-secondary rounded-bl-xl rounded-tr-xl text-secondary'>
+                                <div className='absolute top-2 flex flex-col text-center w-full overflow-hidden bg-white shadow-lg shadow-secondary rounded-bl-xl rounded-tr-xl'>
                                     <NavItem className='text-xs font-medium hover:text-white hover:bg-secondary h-full py-3'
-                                        select='bg-secondary text-white' unSelect='text-secondary' />
+                                        select='bg-secondary text-white' unSelect='text-black' />
                                 </div>
                             </div>
                         </>

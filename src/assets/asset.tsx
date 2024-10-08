@@ -9,36 +9,62 @@ import instagram from './instagram.svg'
 import twitter from './twitter.svg'
 import youtube from './youtube.svg'
 import telegram from './telegram.svg'
+import redCar from './redCar.jpeg'
+import yellCar from './yellCar.jpeg'
+import damri from './damri.jpeg'
+import homeStay1 from './homeStay1.jpeg'
+import homeStay2 from './homeStay2.jpeg'
+import homeStay3 from './homeStay3.jpeg'
+import gandrung from './gandrung.jpeg'
+import mountOrange from './gunungOrange.jpeg'
 
 export const assets = {
-    bgHome
+    bgHome, mountOrange, gandrung
 }
 
 export const textNavbar = [
     {
         text: 'Beranda',
-        link: '/',
-        select: false
+        link: '/'
     },
     {
         text: 'Destinasi',
         link: '/destinasi',
-        select: false
     },
     {
         text: 'Tentang Kami',
         link: '/tentang-kami',
-        select: false
     },
 ]
 
-export const textGroup = {
+export const textHeader = {
     headerHome: {
         title: 'Langkah Sritanjung.',
         description:
             'Nikmati pesona alam dan kekayaan kuliner kota Banyuwangi dengan mudah dan praktis bersama Langkah Sritanjung.'
+    },
+    headerDestinasi: {
+        title: 'Kawah Ijen',
+        description:
+            'Nikmati pesona alam dan kekayaan kuliner kota Banyuwangi dengan mudah dan praktis bersama Langkah Sritanjung.'
     }
 }
+
+export const textListTime = [
+    {
+        title: 'Pukul 00:00 - 03:00 atau 04:00 - 06:00',
+        desc: 'Waktu yang tepat untuk melihat blue fire atau menikmati sunrise di puncak ijen.'
+    }, {
+        title: 'Saat Cuaca cerah dan kering',
+        desc: 'Cuaca cerah memungkinkan melihat Blue Fire dan kawah turquoise, serta pendakian lebih aman.'
+    }, {
+        title: 'Musim kemarau (April hingga Oktober)',
+        desc: 'Periode paling ideal karena cuaca cenderung cerah dan curah hujan rendah.'
+    }, {
+        title: 'Hindari musim hujan (November - Maret)',
+        desc: 'Curah hujan membuat jalur licin dan  pemandangan kawah tertutup kabut tebal.'
+    }
+]
 
 export const inputAssets = {
     search: {
@@ -93,6 +119,18 @@ export const destinationsCard = [
     }
 ]
 
+export const destinationsCategory = {
+    desTitle: 'Jelajahi Berbagai Destinasi Impianmu Disini!',
+    description: 'We always offer curtains made from premium and high-quality materials.We always offer curtains made from premium and high-quality materials.',
+    category: [
+        { title: 'Pegunungan', },
+        { title: 'Pantai', },
+        { title: 'Air Terjun', },
+        { title: 'Taman', },
+        { title: 'Desa Wisata', },
+    ]
+}
+
 export const footerAssets = {
     logo: logo,
     menu: {
@@ -136,4 +174,47 @@ export const footerAssets = {
         ]
     },
     textFooter: '2024Regedua | All rights reserved'
+}
+
+export const cardStackAssets = {
+    cardTransport: {
+        cardTitle: 'Rekomendasi Transportasi',
+        value: [
+            {
+                img: redCar,
+                title: 'Jeep AOKA 2456 Banyuwangi',
+                price: 'Rp 250.000.'
+            },
+            {
+                img: damri,
+                title: 'Travel Damri Banyuwangi',
+                price: 'Rp 150.000.'
+            },
+            {
+                img: yellCar,
+                title: 'Jeep KoiY8 Touring',
+                price: 'Rp 210.000.'
+            },
+        ]
+    },
+    cardHomestay: {
+        cardTitle: 'Rekomendasi Homestay',
+        value: [
+            {
+                img: homeStay1,
+                title: 'Homestay Banyuwangi',
+                price: 'Rp 150.000.'
+            },
+            {
+                img: homeStay2,
+                title: 'Homestay Banyuwangi',
+                price: 'Rp 150.000.'
+            },
+            {
+                img: homeStay3,
+                title: 'Homestay Banyuwangi',
+                price: 'Rp 150.000.'
+            }
+        ]
+    }
 }
