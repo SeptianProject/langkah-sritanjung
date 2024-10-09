@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Route, Routes, useLocation } from "react-router-dom"
 import Footer from "./components/layouts/Footer"
 import Navbar from "./components/layouts/Navbar"
 import HomePage from "./components/pages/HomePage"
@@ -7,16 +7,26 @@ import RekomendationPage from "./components/pages/RekomendationPage"
 import TourPage from "./components/pages/TourPage"
 
 const App = () => {
+  const location = useLocation()
+
+  const hideNavbar =
+    location.pathname === '/tour-gate' ||
+    location.pathname === '/detail-rekomendasi'
+
+  const hideFooter =
+    location.pathname === '/tour-gate' ||
+    location.pathname === '/detail-rekomendasi'
+
   return (
     <section className="container max-w-full overflow-hidden selection:text-white selection:bg-secondary scroll-smooth">
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/tour-gate" element={<TourPage />} />
         <Route path="/detail-rekomendasi" element={<RekomendationPage />} />
       </Routes>
-      <Footer />
+      {!hideFooter && <Footer />}
     </section>
   )
 }

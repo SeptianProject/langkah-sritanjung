@@ -17,9 +17,11 @@ import homeStay2 from './homeStay2.jpeg'
 import homeStay3 from './homeStay3.jpeg'
 import gandrung from './gandrung.jpeg'
 import mountOrange from './gunungOrange.jpeg'
+import chatBot from './chatbot.png'
+import pinLocation from './Location.png'
 
 export const assets = {
-    bgHome, mountOrange, gandrung
+    bgHome, mountOrange, gandrung, redCar, chatBot, pinLocation
 }
 
 export const textNavbar = [
@@ -217,4 +219,12 @@ export const cardStackAssets = {
             }
         ]
     }
+}
+
+export const DetailDummy = {
+    titleDetail: 'Cahaya Motor Rental.',
+    deskripsi: {
+        title: 'Deskripsi :',
+        desc: 'We always offer curtains made from premium and high-quality materials. We always offer curtains made from premium and high-quality materials.'
+    },
 }
