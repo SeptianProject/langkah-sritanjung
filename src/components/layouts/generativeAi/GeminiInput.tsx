@@ -1,34 +1,34 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import { useState } from "react";
+import { ChangeEventHandler, FormEvent } from "react";
+import { BiSend } from "react-icons/bi";
+import Loading from 'react-loading';
 
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+export interface GeminiInputProps {
+     handleSubmit: (e: FormEvent) => void;
+     input: string | number | readonly string[];
+     setInput: ChangeEventHandler<HTMLTextAreaElement>;
+     loading?: boolean;
+}
 
-const geminiAi = new GoogleGenerativeAI(API_KEY);
-
-const GeminiInput = () => {
-     const [input, setInput] = useState<string>('');
-     const [output, setOutput] = useState([]);
-
-     const handleSubmit = async (e) => {
-          e.preventDefault();
-          try {
-               const model = geminiAi.getGenerativeModel({
-                    model: "gemini-pro"
-               })
-
-               const result = await model.generateContent(input)
-               let response = result.response.text();
-               response = response.replace(/\*/g, "");
-
-               setOutput((prev: any) => [...prev, response])
-          } catch (error) {
-               console.error(error)
-          }
-     }
+const GeminiInput = ({ handleSubmit, input, setInput, loading }: GeminiInputProps) => {
 
      return (
-          <input type="text" className="py-5 w-full rounded-xl" />
+          <form onSubmit={handleSubmit} className="relative flex items-center justify-center w-full h-full">
+               <textarea value={input} onChange={setInput}
+                    name="" id="" rows={2} placeholder="Cari toko Umkm terdekat"
+                    className="p-3 px-5 pr-14 min-h-24 max-h-[10rem]
+                    resize-none box-border overflow-y-auto leading-relaxed
+                    w-full rounded-xl border-none outline-none transition-all duration-500
+                    focus:ring-2 focus:ring-primary"/>
+               <button type="submit" className="absolute right-4">
+                    {
+                         loading ?
+                              <Loading type="spin" color="#EA8104" height={25} width={25} />
+                              :
+                              <BiSend className="text-primary -rotate-45 size-6" />
+                    }
+               </button>
+          </form>
      )
 }
 
