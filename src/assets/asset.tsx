@@ -18,10 +18,11 @@ import homeStay3 from './homeStay3.jpeg'
 import gandrung from './gandrung.jpeg'
 import mountOrange from './gunungOrange.jpeg'
 import chatBot from './chatbot.png'
-import pinLocation from './Location.png'
+import markDestination from './Location.png'
+import markOrigin from './MarkerIcon.png'
 
 export const assets = {
-    bgHome, mountOrange, gandrung, redCar, chatBot, pinLocation
+    bgHome, mountOrange, gandrung, redCar, chatBot, markDestination, markOrigin
 }
 
 export const textNavbar = [
