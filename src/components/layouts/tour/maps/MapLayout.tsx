@@ -1,66 +1,44 @@
-import { GoogleMap, LoadScript, Marker, } from '@react-google-maps/api'
-import { useEffect, useState } from 'react';
+import {
+     Map,
+     APIProvider,
+     AdvancedMarker,
+     Pin,
+} from '@vis.gl/react-google-maps'
 
-const API_KEY: string = import.meta.env.VITE_GMAPS_API_KEY;
-
-const center = {
-     lat: -8.219233,
-     lng: 114.369225
-}
-
-type MapLayoutProps = {
-     location: { lat: number; lng: number } | null;
-};
-
-const containerStyle = {
-     width: '100%',
-     height: '400px'
-}
-
-const MapLayout = ({ location }: MapLayoutProps) => {
-     const [map, setMap] = useState<google.maps.Map | null>(null)
-
-     const onLoad = async (mapInstance: google.maps.Map) => {
-          setMap(mapInstance)
-     }
-
-     const onUnmount = () => {
-          setMap(null)
-     }
-
-     useEffect(() => {
-          if (map && location) {
-               map.panTo(location)
-          }
-     }, [location, map])
-     // const onLoad = async (mapInstance: google.maps.Map) => {
-     //      const bounds = await new google.maps.LatLngBounds()
-
-     //      mapInstance.fitBounds(bounds)
-     //      setMap(mapInstance)
-     // }
-
-     // const onUnmount = () => {
-     //      setMap(null)
-     // }
+const MapLayout = ({ places }: { places: google.maps.places.PlaceResult[] }) => {
+     const position = { lat: -8.219233, lng: 114.369225 }
 
      return (
-          <div className="w-full h-[25rem] overflow-hidden">
-               <LoadScript googleMapsApiKey={API_KEY}>
-                    <GoogleMap
-                         mapContainerStyle={containerStyle}
-                         center={location || center}
-                         onLoad={onLoad}
-                         onUnmount={onUnmount}
-                         zoom={location ? 14 : 10}
-
+          <APIProvider apiKey={import.meta.env.VITE_GMAPS_API_KEY} >
+               <div className='w-full h-[60vh]'>
+                    <Map
+                         defaultZoom={10}
+                         defaultCenter={position}
+                         disableDefaultUI={true}
+                         fullscreenControl={false}
+                         mapId={import.meta.env.VITE_GMAPS_ID}
                     >
-                         {/* <Marker position={center} /> */}
-                         {location && <Marker position={location} />}
-                    </GoogleMap>
-               </LoadScript>
-          </div>
+                         <AdvancedMarker position={position} >
+                              <Pin background={'orange'}
+                                   glyphColor={'white'}
+                                   borderColor={'orange'} />
+                         </AdvancedMarker>
+
+                         {places.map((place, index) => (
+                              <AdvancedMarker
+                                   key={index}
+                                   position={place.geometry?.location}
+                                   title={place.name}>
+                                   <Pin background={'blue'} glyphColor={'white'} borderColor={'blue'} />
+                              </AdvancedMarker>
+                         ))}
+                         <Directions />
+                    </Map>
+               </div>
+          </APIProvider>
      )
 }
 
 export default MapLayout
+
+

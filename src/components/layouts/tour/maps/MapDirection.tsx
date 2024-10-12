@@ -36,7 +36,6 @@ const Directions = () => {
                destination: 'Malang',
                travelMode: google.maps.TravelMode.DRIVING,
                provideRouteAlternatives: true,
-               region: 'ID',
                optimizeWaypoints: true,
                drivingOptions: {
                     departureTime: new Date(),
@@ -91,29 +90,7 @@ const Directions = () => {
      if (!leg) return null
 
      return (
-          <div className='hidden absolute top-2 right-2 bg-white rounded-lg 
-          text-tertiary shadow-xl p-3 w-44 h-auto'>
-               <h2 className='text-sm font-semibold'>{selected.summary}</h2>
-               <p className='text-xs font-medium text-opacity-80'>
-                    {leg.start_address.split(',')[0]} ke {leg.end_address.split(',')[0]}
-               </p>
-               <div className='mt-2'>
-                    <h5 className='text-xs font-medium text-opacity-80'>Jarak: {leg.distance?.text}</h5>
-                    <h5 className='text-xs font-medium text-opacity-80'>Waktu: {leg.duration?.text}</h5>
-               </div>
-
-               <h2 className='text-sm font-semibold mt-4'>Other Routes</h2>
-               <ul>
-                    {routes.map((route, index) => (
-                         <li key={route.summary} className='text-xs font-medium flex justify-start'>
-                              <button className='border border-slate-600 p-1 mt-2' onClick={() => setRouteIndex(index)}>
-                                   {route.summary}
-                              </button>
-                         </li>
-                    ))
-                    }
-               </ul>
-          </div>
+          <></>
      )
 }
 
