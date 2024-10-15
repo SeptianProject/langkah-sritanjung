@@ -1,5 +1,3 @@
-import React from 'react'
-
 const DashVertical = ({ className }: { className?: string }) => {
      return (
           <div

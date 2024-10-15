@@ -10,7 +10,7 @@ const Directions = () => {
      const [directionsRenderer, setDirectionsRenderer] =
           useState<google.maps.DirectionsRenderer>()
      const [routes, setRoutes] = useState<google.maps.DirectionsRoute[]>([])
-     const [routeIndex, setRouteIndex] = useState<number>(0)
+     const [routeIndex] = useState<number>(0)
      const selected = routes[routeIndex]
      const leg = selected?.legs[0]
 

@@ -3,6 +3,7 @@ import CardBasic from '../../fragments/cards/CardBasic'
 import TextGroup from '../../elements/text/TextGroup'
 import DropdownButton from '../../fragments/dropdowns/DropdownButton'
 import CardHomestay from '../cards/CardHomestay'
+import { Element } from 'react-scroll'
 
 const HomeDestination = () => {
      const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
@@ -12,7 +13,7 @@ const HomeDestination = () => {
      }
 
      return (
-          <>
+          <Element name='destinasi' className='flex flex-col gap-y-20'>
                {/* Card Bento grid */}
                <div className='flex flex-col gap-y-14 items-center lg:min-h-screen'>
                     <h1 className='text-xl xs:text-2xl font-bold w-80 xs:w-96 text-center 
@@ -34,7 +35,7 @@ const HomeDestination = () => {
                <div className={`lg:min-h-screen px-10 lg:mt-20 ${dropdownOpen ? 'mt-60' : 'mt-0'} transition-all duration-300`}>
                     <CardHomestay />
                </div>
-          </>
+          </Element>
      )
 }
 

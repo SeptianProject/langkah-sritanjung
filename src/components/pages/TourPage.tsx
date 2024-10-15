@@ -1,5 +1,4 @@
 import { FormEvent, useState } from "react"
-// import MapLayout from "../layouts/tour/maps/MapLayout"
 import ChatFooter from "../layouts/tour/ChatFooter"
 import TourHeader from "../layouts/tour/TourHeader"
 import { GenerateContentResult, GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
@@ -8,7 +7,6 @@ import MapLayout from "../layouts/tour/maps/MapLayout";
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GMAPS_API_KEY;
 const geminiAi = new GoogleGenerativeAI(GEMINI_API_KEY);
-
 
 const TourPage = () => {
      const [input, setInput] = useState<string>('');
@@ -56,11 +54,10 @@ const TourPage = () => {
           }
      }
 
-
      return (
           <div className="max-w-full relative min-h-screen flex flex-col justify-between">
                <TourHeader responses={output} />
-               <MapLayout location={location} />
+               <MapLayout />
                <ChatFooter
                     loading={loading}
                     handleSubmit={handleOnSubmit}

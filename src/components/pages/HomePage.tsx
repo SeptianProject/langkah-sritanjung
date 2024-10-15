@@ -10,7 +10,7 @@ const HomePage = () => {
      return (
           <div className='flex flex-col gap-y-20'>
                {/* Header */}
-               <div className='flex flex-col items-center'>
+               <section className='flex flex-col items-center'>
                     <div className='relative min-h-[40rem] lg:min-h-screen w-full bg-cover bg-center
                          flex flex-col justify-center px-10 md:px-20' style={{ backgroundImage: `url(${assets.bgHome})` }}>
                          <div className='from-tertiary/80 to-transparent bg-gradient-to-tr from-55% to-95% absolute inset-0 ' />
@@ -21,7 +21,7 @@ const HomePage = () => {
                     <div className='w-full'>
                          <CardText />
                     </div>
-               </div>
+               </section>
                {/* Destination */}
                <HomeDestination />
                {/* About */}

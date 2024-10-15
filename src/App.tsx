@@ -21,6 +21,7 @@ const App = () => {
     <section className="container max-w-full overflow-hidden selection:text-white selection:bg-secondary scroll-smooth">
       {!hideNavbar && <Navbar />}
       <Routes>
+        <Route path="*" element={<HomePage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/tour-guide" element={<TourPage />} />

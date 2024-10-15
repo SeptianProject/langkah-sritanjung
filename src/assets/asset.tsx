@@ -28,15 +28,15 @@ export const assets = {
 export const textNavbar = [
     {
         text: 'Beranda',
-        link: '/'
+        link: 'beranda',
     },
     {
         text: 'Destinasi',
-        link: '/destinasi',
+        link: 'destinasi',
     },
     {
         text: 'Tentang Kami',
-        link: '/tentang-kami',
+        link: 'tentang-kami',
     },
 ]
 
