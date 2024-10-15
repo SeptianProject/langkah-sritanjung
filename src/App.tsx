@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom"
+import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 import Footer from "./components/layouts/Footer"
 import Navbar from "./components/layouts/Navbar"
 import HomePage from "./components/pages/HomePage"
@@ -21,7 +21,7 @@ const App = () => {
     <section className="container max-w-full overflow-hidden selection:text-white selection:bg-secondary scroll-smooth">
       {!hideNavbar && <Navbar />}
       <Routes>
-        <Route path="*" element={<HomePage />} />
+        <Route path="*" element={<Navigate to={'/'} replace />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/tour-guide" element={<TourPage />} />
