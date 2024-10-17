@@ -1,8 +1,8 @@
 import SearchInput from '../elements/input/SearchInput'
 import ButtonSearch from '../elements/button/ButtonSearch'
-import { textButton } from '../../assets/asset'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { baseUrl } from '../elements/Core';
 
 interface Destination {
      path: string;
@@ -30,7 +30,7 @@ const ButtonHeader = () => {
      useEffect(() => {
           const fetchDestinations = async () => {
                try {
-                    const response = await axios.get('https://striking-egg-9d9efcd8e6.strapiapp.com/api/destinasi-wisatas')
+                    const response = await axios.get(`${baseUrl}?sort=id:asc`)
                     const data = response.data
 
                     const formattedDestination = data.map((item) => ({
@@ -39,7 +39,6 @@ const ButtonHeader = () => {
                     }))
 
                     setDestinations(formattedDestination)
-                    console.log(formattedDestination)
                } catch (error) {
                     console.error(error)
                }
@@ -48,22 +47,16 @@ const ButtonHeader = () => {
      }, [])
 
      return (
-          <div className=''>
+          <div>
                <SearchInput />
                <div className='mt-4 flex gap-x-4'>
-                    {destinations.slice(0, 2).map((destination, index) => (
+                    {destinations.slice(0, isDesktop ? 3 : 2).map((destination, index) => (
                          <ButtonSearch
                               key={index}
                               destination={destination.path}
                               text={destination.text}
                               clasName='px-4 py-2' />
                     ))}
-                    {isDesktop ?
-                         <ButtonSearch
-                              destination={textButton.search.tamanBaluran.path}
-                              text={textButton.search.tamanBaluran.text}
-                              clasName='px-4 py-2' />
-                         : null}
                </div>
           </div>
      )

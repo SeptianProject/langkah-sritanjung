@@ -5,9 +5,9 @@ import MapLayout from "../layouts/tour/maps/MapLayout";
 import { BiArrowBack } from "react-icons/bi";
 import ModalResponse from "../layouts/tour/ModalResponse";
 import { useNavigate } from "react-router-dom";
+import { geminiApiKey } from "../elements/Core";
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const geminiAi = new GoogleGenerativeAI(GEMINI_API_KEY);
+const geminiAi = new GoogleGenerativeAI(geminiApiKey);
 
 const TourPage = () => {
      const navigate = useNavigate()
@@ -46,7 +46,7 @@ const TourPage = () => {
      return (
           <div className="max-w-full min-h-screen flex flex-col">
                <div className="flex-grow h-0 relative">
-                    <MapLayout />
+                    <MapLayout setLoading={setLoading} />
                     <button
                          onClick={handleBackClick}
                          className="absolute top-5 left-10 bg-secondary size-10 rounded-lg">
