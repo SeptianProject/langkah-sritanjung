@@ -4,11 +4,13 @@ import { GenerateContentResult, GenerativeModel, GoogleGenerativeAI } from "@goo
 import MapLayout from "../layouts/tour/maps/MapLayout";
 import { BiArrowBack } from "react-icons/bi";
 import ModalResponse from "../layouts/tour/ModalResponse";
+import { useNavigate } from "react-router-dom";
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const geminiAi = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 const TourPage = () => {
+     const navigate = useNavigate()
      const [input, setInput] = useState<string>('');
      const [output, setOutput] = useState<string[]>([]);
      const [loading, setLoading] = useState<boolean>(false);
@@ -37,12 +39,16 @@ const TourPage = () => {
           setIsModalOpen(false)
      }
 
+     const handleBackClick = () => {
+          navigate(-1);
+     };
+
      return (
           <div className="max-w-full min-h-screen flex flex-col">
                <div className="flex-grow h-0 relative">
                     <MapLayout />
                     <button
-                         onClick={() => { }}
+                         onClick={handleBackClick}
                          className="absolute top-5 left-10 bg-secondary size-10 rounded-lg">
                          <BiArrowBack className="mx-auto h-full size-5 text-white" />
                     </button>

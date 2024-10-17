@@ -10,11 +10,11 @@ const App = () => {
   const location = useLocation()
 
   const hideNavbar =
-    location.pathname === '/tour-guide' ||
+    location.pathname.startsWith('/tour-guide/') ||
     location.pathname === '/detail-rekomendasi'
 
   const hideFooter =
-    location.pathname === '/tour-guide' ||
+    location.pathname.startsWith('/tour-guide/') ||
     location.pathname === '/detail-rekomendasi'
 
   return (
@@ -24,7 +24,7 @@ const App = () => {
         <Route path="*" element={<Navigate to={'/'} replace />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/detail" element={<DetailPage />} />
-        <Route path="/tour-guide" element={<TourPage />} />
+        <Route path="/tour-guide/:destination" element={<TourPage />} />
         <Route path="/detail-rekomendasi" element={<RekomendationPage />} />
       </Routes>
       {!hideFooter && <Footer />}

@@ -81,9 +81,18 @@ export const inputAssets = {
 
 export const textButton = {
     search: {
-        search1: 'Kawah Ijen',
-        search2: 'Pulau Merah',
-        search3: 'Taman Nasional Baluran',
+        kawahIjen: {
+            path: 'kawah-ijen',
+            text: 'Kawah Ijen'
+        },
+        pulauMerah: {
+            path: 'pulau-merah',
+            text: 'Pulau Merah'
+        },
+        tamanBaluran: {
+            path: 'taman-nasional-baluran',
+            text: 'Taman Nasional Baluran'
+        },
         span: 'Jelajahi'
     }
 }

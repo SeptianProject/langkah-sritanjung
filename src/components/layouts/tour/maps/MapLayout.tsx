@@ -6,6 +6,7 @@ import {
 } from '@react-google-maps/api'
 import { assets } from "../../../../assets/asset";
 import axios from "axios";
+import { Params, useParams } from "react-router-dom";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -15,9 +16,10 @@ const MapLayout = () => {
      const { isLoaded } = useLoadScript(
           { googleMapsApiKey: import.meta.env.VITE_GMAPS_API_KEY }
      )
+     const { destination } = useParams<Params>()
 
      const [userLocation, setUserLocation] = useState<LatLngLiteral | null>(null)
-     const [destination, setDestination] = useState<LatLngLiteral | null>(null)
+     const [destinationData, setDestinationData] = useState<LatLngLiteral | null>(null)
      const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null)
      const mapRef = useRef<google.maps.Map | null>(null)
      const center = useMemo<LatLngLiteral>(() => ({ lat: -8.219233, lng: 114.369225 }), [])
@@ -32,11 +34,12 @@ const MapLayout = () => {
      }, [])
 
      useEffect(() => {
-          const fetchDestination = async () => {
+          const fetchDestinationData = async () => {
                try {
-                    const response = await axios.get("https://striking-egg-9d9efcd8e6.strapiapp.com/api/destinasi-wisatas/kawah-ijen")
+                    const response = await axios.get(`https://striking-egg-9d9efcd8e6.strapiapp.com/api/destinasi-wisatas/${destination}`)
+                    console.log(response)
                     const data = response.data.data
-                    setDestination({
+                    setDestinationData({
                          lat: data.attributes.location.lat,
                          lng: data.attributes.location.lng
                     })
@@ -45,8 +48,10 @@ const MapLayout = () => {
                }
           }
 
-          fetchDestination()
-     }, [])
+          if (destination) {
+               fetchDestinationData()
+          }
+     }, [destination])
 
      useEffect(() => {
           navigator.geolocation.getCurrentPosition(
@@ -69,13 +74,13 @@ const MapLayout = () => {
      }, [])
 
      useEffect(() => {
-          if (userLocation && destination) {
+          if (userLocation && destinationData) {
                const directionsService = new google.maps.DirectionsService()
 
                directionsService.route(
                     {
                          origin: userLocation,
-                         destination: destination,
+                         destination: destinationData,
                          travelMode: google.maps.TravelMode.DRIVING
                     },
                     (result, status) => {
@@ -98,18 +103,18 @@ const MapLayout = () => {
                     })
 
                     new google.maps.Marker({
-                         position: destination,
+                         position: destinationData,
                          map: mapRef.current,
                          icon: {
                               url: assets.markDestination,
-                              scaledSize: new google.maps.Size(30, 30)
+                              scaledSize: new google.maps.Size(25, 25)
                          },
                     })
                })
           }
-     }, [userLocation, destination])
+     }, [userLocation, destinationData])
 
-     if (!isLoaded || !userLocation || !destination) return (
+     if (!isLoaded || !userLocation || !destinationData) return (
           <div>
                <img src={assets.tourLoading}
                     className="size-40 m-auto" alt="Loading..." />
