@@ -21,6 +21,9 @@ const HomePage = () => {
                     <div className='w-full'>
                          <CardText />
                     </div>
+                    <div className="text-7xl">
+                         <h1>penting berubah</h1>
+                    </div>
                </section>
                {/* Destination */}
                <HomeDestination />
