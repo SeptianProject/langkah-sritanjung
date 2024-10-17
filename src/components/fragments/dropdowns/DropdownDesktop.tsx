@@ -1,5 +1,4 @@
      import { useNavigate } from "react-router-dom"
-     import { destinationsCategory } from "../../../assets/asset"
 
      type CategoryItem = {
           name: string

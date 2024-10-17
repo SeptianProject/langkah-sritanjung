@@ -9,6 +9,7 @@ import { baseUrl } from '../elements/Core'
 import { useSearchParams } from 'react-router-dom'
 
 interface Kategoris {
+     id: number;
      name: string;
      slug: string;
 }
@@ -41,7 +42,7 @@ interface KategoriDetail {
 
 const HomePage = () => {
      const [searchParams] = useSearchParams();
-     const category = searchParams.get("category");
+     const category = searchParams.get("category") || 'pegunungan';
      const [kategoris, setKategoris] = useState<Kategoris[]>([]);
      const [kategoriDetail, setKategoriDetail] = useState<KategoriDetail | null>(null);
      const [loading, setLoading] = useState<boolean>(true);
@@ -50,10 +51,11 @@ const HomePage = () => {
      useEffect(() => {
           const fetchKategoris = async () => {
                try {
-                    const response = await axios.get<{ data: { attributes: { name: string; slug: string } }[] }>(`${baseUrl}/kategori-wisatas`);
+                    const response = await axios.get<{ data: {id: number; attributes: { name: string; slug: string } }[] }>(`${baseUrl}/kategori-wisatas`);
                     const data = response.data.data;
 
                     const formattedKategori = data.map((item) => ({
+                         id: item.id,
                          slug: item.attributes.slug,
                          name: item.attributes.name
                     }))
@@ -107,7 +109,7 @@ const HomePage = () => {
                     </div>
                </section>
                {/* Destination */}
-               <HomeDestination category={kategoris}/>
+               <HomeDestination category={kategoris} detail={kategoriDetail}/>
                {/* About */}
                <HomeAbout />
           </div >
