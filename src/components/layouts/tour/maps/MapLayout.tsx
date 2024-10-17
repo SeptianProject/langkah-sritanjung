@@ -7,14 +7,14 @@ import {
 import { assets } from "../../../../assets/asset";
 import axios from "axios";
 import { Params, useParams } from "react-router-dom";
+import { baseUrl, mapApiKey } from "../../../elements/Core";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
 
-
-const MapLayout = () => {
+const MapLayout = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
      const { isLoaded } = useLoadScript(
-          { googleMapsApiKey: import.meta.env.VITE_GMAPS_API_KEY }
+          { googleMapsApiKey: mapApiKey }
      )
      const { destination } = useParams<Params>()
 
@@ -31,13 +31,14 @@ const MapLayout = () => {
 
      const onLoad = useCallback((map: google.maps.Map) => {
           (mapRef.current = map)
-     }, [])
+          setLoading(false)
+     }, [setLoading])
 
      useEffect(() => {
           const fetchDestinationData = async () => {
                try {
-                    const response = await axios.get(`https://striking-egg-9d9efcd8e6.strapiapp.com/api/destinasi-wisatas/${destination}`)
-                    console.log(response)
+                    const response = await axios.get(`${baseUrl}/${destination}`)
+
                     const data = response.data.data
                     setDestinationData({
                          lat: data.attributes.location.lat,
@@ -63,7 +64,7 @@ const MapLayout = () => {
                },
                (error) => {
                     console.error('Error get user location:', error)
-                    alert("Gagal mendapatkan lokasi. Pastikan izin lokasi diberikan dan perangkat mendukung.");
+                    setLoading(false)
                },
                {
                     enableHighAccuracy: true,
@@ -71,7 +72,7 @@ const MapLayout = () => {
                     maximumAge: 0
                }
           )
-     }, [])
+     }, [setLoading])
 
      useEffect(() => {
           if (userLocation && destinationData) {

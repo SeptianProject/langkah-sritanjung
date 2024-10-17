@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from 'react'
 import { BiMenu, BiX } from 'react-icons/bi'
-import ButtonRounded from '../elements/button/ButtonRounded'
 import NavItem from '../elements/NavItem'
 import { useLocation } from 'react-router-dom'
 
@@ -71,9 +70,6 @@ const Navbar = () => {
                     <NavItem />
                 </div>
             }
-            <ButtonRounded text='Masuk'
-                className='font-poppins tracking-wide transition-all duration-300
-                bg-secondary bg-opacity-90 hover:bg-opacity-100' />
         </nav>
     )
 }
