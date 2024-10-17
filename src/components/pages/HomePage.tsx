@@ -30,14 +30,14 @@ const HomePage = () => {
                     }))
 
                     setKategoris(formattedKategori);
-                    console.log(formattedKategori)
                } catch (error) {
                     setError(axios.isAxiosError(error) ? error.message : 'An error occured');
                } finally {
                     setLoading(false);
                }
-          ;}
-          
+               ;
+          }
+
           fetchKategoris();
      }, [])
 

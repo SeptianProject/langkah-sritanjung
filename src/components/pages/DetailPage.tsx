@@ -3,7 +3,7 @@ import { assets, cardStackAssets, textHeader } from '../../assets/asset'
 import TextHeader from '../fragments/TextHeader'
 import DotDashCustom from '../fragments/DotDashCustom'
 import CardStack from '../fragments/cards/CardStack'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../elements/Core';
@@ -16,7 +16,7 @@ type CardDestination = {
      telp: string,
      price: string,
      url: string,
-     slug?: string,
+     slug: string,
      image: {
           url: string,
           name: string
@@ -37,12 +37,13 @@ interface DestinationDetail {
           }[]
      },
      transportasis: CardDestination[],
-     homestays: CardDestination[]
+     homestays: CardDestination[],
+     kuliners: CardDestination[]
 }
-
 
 const DetailPage = () => {
      const { slug } = useParams<{ slug: string }>()
+     const navigate = useNavigate()
      const [destinationDetail, setDestinationDetail] = useState<DestinationDetail | null>(null)
 
      const fetchDestinationDetail = useCallback(async () => {
@@ -83,6 +84,20 @@ const DetailPage = () => {
                          telp: item.attributes.telp,
                          price: item.attributes.price,
                          url: item.attributes.url,
+                         slug: item.attributes.slug,
+                         image: {
+                              url: item.attributes.image?.data?.attributes?.url,
+                              name: item.attributes.image?.data?.attributes?.name
+                         }
+                    })),
+                    kuliners: data.kuliners.data.map((item: any) => ({
+                         name: item.attributes.name,
+                         desc: item.attributes.description,
+                         address: item.attributes.address,
+                         telp: item.attributes.telp,
+                         price: item.attributes.price,
+                         url: item.attributes.url,
+                         slug: item.attributes.slug,
                          image: {
                               url: item.attributes.image?.data?.attributes?.url,
                               name: item.attributes.image?.data?.attributes?.name
@@ -97,6 +112,16 @@ const DetailPage = () => {
      useEffect(() => {
           fetchDestinationDetail()
      }, [fetchDestinationDetail])
+
+     const handleDetailClick = (item: CardDestination, type: 'transportasi' | 'homestay' | 'kuliner') => {
+          navigate(`/detail/${type}/${item.slug}`);
+     };
+
+     const handleContactClick = (url: string) => {
+          if (url) {
+               window.open(url, '_blank');
+          }
+     };
 
      if (!destinationDetail) {
           return <div>Loading...</div>
@@ -117,6 +142,7 @@ const DetailPage = () => {
                     </div>
                     <div className='z-10 mt-5'>
                          <button
+                              onClick={() => navigate(`/tour-guide/${slug}`)}
                               className='bg-primary text-white w-24 py-2 text-sm font-medium rounded-md'>
                               Mulai Tur
                          </button>
@@ -174,9 +200,12 @@ const DetailPage = () => {
                               cardStackItems={{
                                    item: {
                                         value: destinationDetail.transportasis.map((transport) => ({
+                                             id: transport.slug!,
                                              img: transport.image.url,
                                              title: transport.name,
-                                             price: transport.price
+                                             price: transport.price,
+                                             onDetailClick: () => handleDetailClick(transport, 'transportasi'),
+                                             onContactClick: () => handleContactClick(transport.url)
                                         }))
                                    }
                               }}
@@ -189,9 +218,12 @@ const DetailPage = () => {
                               cardStackItems={{
                                    item: {
                                         value: destinationDetail.homestays.map((homestay) => ({
+                                             id: homestay.slug!,
                                              img: homestay.image.url,
                                              title: homestay.name,
-                                             price: homestay.price
+                                             price: homestay.price,
+                                             onDetailClick: () => handleDetailClick(homestay, 'homestay'),
+                                             onContactClick: () => handleContactClick(homestay.url)
                                         }))
                                    }
                               }}
@@ -203,10 +235,13 @@ const DetailPage = () => {
                          <CardStack
                               cardStackItems={{
                                    item: {
-                                        value: destinationDetail.homestays.map((homestay) => ({
-                                             img: homestay.image.url,
-                                             title: homestay.name,
-                                             price: homestay.price
+                                        value: destinationDetail.kuliners.map((kuliner) => ({
+                                             id: kuliner.slug!,
+                                             img: kuliner.image.url,
+                                             title: kuliner.name,
+                                             price: kuliner.price,
+                                             onDetailClick: () => handleDetailClick(kuliner, 'kuliner'),
+                                             onContactClick: () => handleContactClick(kuliner.url)
                                         }))
                                    }
                               }}

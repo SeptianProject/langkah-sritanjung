@@ -2,14 +2,18 @@ import { settings } from '../../elements/carousel/CarouselSetting'
 import Slider from 'react-slick'
 import CardStackItems from '../CardStackItems'
 import { useEffect, useState } from 'react'
+import ButtonSecondary from '../../elements/button/ButtonSecondary'
 
 type CardStackProps = {
      cardStackItems: {
           item: {
                value: {
+                    id: string
                     img: string
                     title: string
                     price: string
+                    onDetailClick: () => void
+                    onContactClick: () => void
                }[]
           }
      }
@@ -18,11 +22,8 @@ type CardStackProps = {
 const CardStack = ({ cardStackItems }: CardStackProps) => {
      const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth >= 768)
 
-     const handleResize = () => {
-          setIsDesktop(window.innerWidth >= 768)
-     }
-
      useEffect(() => {
+          const handleResize = () => setIsDesktop(window.innerWidth >= 768)
           window.addEventListener('resize', handleResize)
           return () => {
                window.removeEventListener('resize', handleResize)
@@ -48,8 +49,8 @@ const CardStack = ({ cardStackItems }: CardStackProps) => {
                                              <div className='absolute bottom-0 bg-tertiary bg-opacity-85 w-full flex flex-col gap-y-3 py-5 items-center rounded-t-3xl'>
                                                   <h2 className='text-lg font-semibold text-white'>{item.title}</h2>
                                                   <div className='flex gap-x-3 w-full items-center justify-center'>
-                                                       <button className='bg-secondary text-white border border-opacity-50 border-white py-1 w-24 rounded-bl-xl rounded-tr-xl text-sm'>Lihat Detail</button>
-                                                       <button className='bg-secondary text-white border border-opacity-50 border-white py-1 w-24 text-sm rounded-bl-xl rounded-tr-xl'>Hubungi</button>
+                                                       <ButtonSecondary text='Lihat Detail' onClick={item.onDetailClick} />
+                                                       <ButtonSecondary text='Hubungi' onClick={item.onContactClick} />
                                                   </div>
                                              </div>
                                         </div>
