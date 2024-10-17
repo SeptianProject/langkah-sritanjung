@@ -1,32 +1,18 @@
 import { FormEvent, useState } from "react"
 import ChatFooter from "../layouts/tour/ChatFooter"
-import TourHeader from "../layouts/tour/TourHeader"
 import { GenerateContentResult, GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
 import MapLayout from "../layouts/tour/maps/MapLayout";
+import { BiArrowBack } from "react-icons/bi";
+import ModalResponse from "../layouts/tour/ModalResponse";
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GMAPS_API_KEY;
 const geminiAi = new GoogleGenerativeAI(GEMINI_API_KEY);
 
 const TourPage = () => {
      const [input, setInput] = useState<string>('');
      const [output, setOutput] = useState<string[]>([]);
      const [loading, setLoading] = useState<boolean>(false);
-     const [location, setLocation] = useState<{ lat: number, lng: number } | null>(null);
-
-     const geoCoordinates = async (address: string) => {
-          const geoCodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_MAPS_API_KEY}`;
-
-          const response = await fetch(geoCodingUrl);
-          const data = await response.json();
-
-          if (data.status === 'OK' && data.results.length > 0) {
-               const location = data.results[0].geometry.location;
-               return ({ lat: location.lat, lng: location.lng });
-          } else {
-               return new Error('Invalid address');
-          }
-     }
+     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
      const handleOnSubmit = async (e: FormEvent) => {
           e.preventDefault();
@@ -34,19 +20,12 @@ const TourPage = () => {
           try {
                const model: GenerativeModel = geminiAi.getGenerativeModel({
                     model: "gemini-1.5-pro",
-                    generationConfig: {
-                         maxOutputTokens: 20,
-                    },
                })
                const result: GenerateContentResult = await model.generateContent(input)
-               const response: string = result.response.text().replace(/\*/g, "");
+               const response: string = result.response.text().replace(/\*|#/g, "");
 
                setOutput([response])
-
-               if (response) {
-                    const coordinates = await geoCoordinates(response);
-                    setLocation(coordinates);
-               }
+               setIsModalOpen(true)
           } catch (error) {
                console.error(error)
           } finally {
@@ -54,16 +33,37 @@ const TourPage = () => {
           }
      }
 
+     const handleCloseModal = () => {
+          setIsModalOpen(false)
+     }
+
      return (
-          <div className="max-w-full relative min-h-screen flex flex-col justify-between">
-               <TourHeader responses={output} />
-               <MapLayout />
-               <ChatFooter
-                    loading={loading}
-                    handleSubmit={handleOnSubmit}
-                    input={input}
-                    setInput={(e) => setInput(e.target.value)}
-               />
+          <div className="max-w-full min-h-screen flex flex-col">
+               <div className="flex-grow h-0 relative">
+                    <MapLayout />
+                    <button
+                         onClick={() => { }}
+                         className="absolute top-5 left-10 bg-secondary size-10 rounded-lg">
+                         <BiArrowBack className="mx-auto h-full size-5 text-white" />
+                    </button>
+               </div>
+               <div className="h-1/4">
+                    <ChatFooter
+                         loading={loading}
+                         handleSubmit={handleOnSubmit}
+                         input={input}
+                         setInput={(e) => setInput(e.target.value)}
+                    />
+               </div>
+               {isModalOpen && (
+                    <div
+                         className="fixed inset-0 flex items-center 
+                         justify-center bg-black bg-opacity-80 z-20">
+                         <ModalResponse
+                              responses={output}
+                              onClose={handleCloseModal} />
+                    </div>
+               )}
           </div>
      )
 }

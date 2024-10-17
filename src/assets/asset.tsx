@@ -20,9 +20,13 @@ import mountOrange from './gunungOrange.jpeg'
 import chatBot from './chatbot.png'
 import markDestination from './Location.png'
 import markOrigin from './MarkerIcon.png'
+import tourLoading from './TourLoading.gif'
+import userProfile from './userProfile.png'
 
 export const assets = {
-    bgHome, mountOrange, gandrung, redCar, chatBot, markDestination, markOrigin
+    bgHome, mountOrange, gandrung, redCar,
+    chatBot, markDestination, markOrigin, tourLoading,
+    userProfile
 }
 
 export const textNavbar = [

@@ -1,7 +1,16 @@
+type ButtonPrimaryProps = {
+     text: string
+     onClick: () => void
+}
 
-const ButtonPrimary = () => {
+const ButtonPrimary = ({ text, onClick }: ButtonPrimaryProps) => {
+
+
      return (
-          <div>ButtonPrimary</div>
+          <button onClick={onClick} className="text-white bg-primary text-sm 
+          font-light rounded py-1 px-2">
+               {text}
+          </button>
      )
 }
 
