@@ -2,6 +2,32 @@ import { useEffect, useState } from 'react'
 import CardStack from './CardStack'
 import { cardStackAssets } from '../../../assets/asset'
 
+interface DestinasiWisata {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    image: {
+      data: {
+        attributes: {
+          url: string;
+        }
+      }
+    }
+  }
+}
+
+interface KategoriDetail {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    destinasi_wisatas: {
+      data: DestinasiWisata[];
+    }
+  }
+}
+
 const CardHomestay = () => {
      const [isDesktop, setIsDesktop] = useState<boolean>(false)
 

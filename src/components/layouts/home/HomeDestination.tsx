@@ -5,11 +5,51 @@ import DropdownButton from '../../fragments/dropdowns/DropdownButton'
 import CardHomestay from '../cards/CardHomestay'
 import { Element } from 'react-scroll'
 
-const HomeDestination = () => {
+type CategoryItem = {
+     name: string
+     slug: string
+}
+
+interface DestinasiWisata {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    image: {
+      data: {
+        attributes: {
+          url: string;
+        }
+      }
+    }
+  }
+}
+
+interface KategoriDetail {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    destinasi_wisatas: {
+      data: DestinasiWisata[];
+    }
+  }
+}
+
+type categoryProps = {
+     category: CategoryItem[]
+}
+
+
+const HomeDestination = (
+     { category } : categoryProps
+) => {
      const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
+
 
      const handleDropdownOpen = () => {
           setDropdownOpen(!dropdownOpen)
+          console.log(category)
      }
 
      return (
@@ -28,7 +68,7 @@ const HomeDestination = () => {
                     w-full h-60 lg:h-80
                     rounded-2xl py-5 px-2 sm:px-5'>
                          <TextGroup />
-                         <DropdownButton dropdownOpen={dropdownOpen} handleDropdownOpen={handleDropdownOpen} />
+                         <DropdownButton dropdownOpen={dropdownOpen} handleDropdownOpen={handleDropdownOpen} category={category} />
                     </div>
                </div>
                {/* Homestay Card */}

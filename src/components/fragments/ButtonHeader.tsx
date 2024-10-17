@@ -30,7 +30,7 @@ const ButtonHeader = () => {
      useEffect(() => {
           const fetchDestinations = async () => {
                try {
-                    const response = await axios.get(`${baseUrl}?sort=id:asc`)
+                    const response = await axios.get(`${baseUrl}/destinasi-wisatas?sort=id:asc`)
                     const data = response.data
 
                     const formattedDestination = data.map((item) => ({
