@@ -18,11 +18,11 @@ const HomePage = () => {
                               <Header />
                          </div>
                     </div>
+                    <div className='text-7xl'>
+                         <h1>nyoba nyoba nyoba</h1>
+                    </div>
                     <div className='w-full'>
                          <CardText />
-                    </div>
-                    <div className="text-7xl">
-                         <h1>penting berubah</h1>
                     </div>
                </section>
                {/* Destination */}

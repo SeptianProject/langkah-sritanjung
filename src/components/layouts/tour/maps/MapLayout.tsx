@@ -63,8 +63,8 @@ const MapLayout = () => {
                },
                (error) => {
                     console.error('Error get user location:', error)
-                    alert("sng penting berubah");
-
+                    alert("Gagal mendapatkan lokasi. Pastikan izin lokasi diberikan dan perangkat mendukung.");
+                    
                },
                {
                     enableHighAccuracy: true,
