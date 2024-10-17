@@ -99,20 +99,20 @@ export const textButton = {
 
 export const textCardCategory = [
     {
-        title: 'Tour Guide',
-        desc: 'We always offer curtains made from premium and high-quality materials.'
+        title: 'Pemandu Wisata',
+        desc: 'Kami menyediakan layanan pemandu wisata berbasis AI yang siap melayani anda 24 jam.'
     },
     {
         title: 'Budaya',
-        desc: 'We always offer curtains made from premium and high-quality materials.'
+        desc: 'Kami menyediakan berbagai rekomendasi budaya Banyuwangi yang menarik untuk dieksplorasi.'
     },
     {
         title: 'Wisata',
-        desc: 'We always offer curtains made from premium and high-quality materials.'
+        desc: 'Kami menyediakan wisata Banyuwangi yang bisa kamu jelajahi dengan bantuan AI!'
     },
     {
         title: 'Kuliner',
-        desc: 'We always offer curtains made from premium and high-quality materials.'
+        desc: 'Kami menyediakan berbagai rekomendasi kuliner Banyuwangi yang menarik untuk dieksplorasi.'
     },
 ]
 
@@ -137,7 +137,7 @@ export const destinationsCard = [
 
 export const destinationsCategory = {
     desTitle: 'Jelajahi Berbagai Destinasi Impianmu Disini!',
-    description: 'We always offer curtains made from premium and high-quality materials.We always offer curtains made from premium and high-quality materials.',
+    description: 'Rasakan pesona Banyuwangi dengan keindahan alam dan budaya yang unik. Temukan pengalaman tak terlupakan di setiap sudutnya!',
     category: [
         { title: 'Pegunungan', },
         { title: 'Pantai', },
@@ -215,6 +215,26 @@ export const cardStackAssets = {
     },
     cardHomestay: {
         cardTitle: 'Rekomendasi Homestay',
+        value: [
+            {
+                img: homeStay1,
+                title: 'Homestay Banyuwangi',
+                price: 'Rp 150.000.'
+            },
+            {
+                img: homeStay2,
+                title: 'Homestay Banyuwangi',
+                price: 'Rp 150.000.'
+            },
+            {
+                img: homeStay3,
+                title: 'Homestay Banyuwangi',
+                price: 'Rp 150.000.'
+            }
+        ]
+    },
+    cardCulinary: {
+        cardTitle: 'Rekomendasi Kuliner',
         value: [
             {
                 img: homeStay1,

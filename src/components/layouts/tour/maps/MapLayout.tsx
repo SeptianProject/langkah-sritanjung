@@ -37,7 +37,7 @@ const MapLayout = ({ setLoading }: { setLoading: (loading: boolean) => void }) =
      useEffect(() => {
           const fetchDestinationData = async () => {
                try {
-                    const response = await axios.get(`${baseUrl}/${destination}`)
+                    const response = await axios.get(`${baseUrl}/destinasi-wisatas/${destination}`)
 
                     const data = response.data.data
                     setDestinationData({

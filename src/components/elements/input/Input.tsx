@@ -1,10 +1,14 @@
+import { ChangeEvent } from "react"
+
 type InputProps = {
      placeholder: string,
      type?: string,
      className?: string
+     value: string,
+     onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-const Input = ({ placeholder, type, className }: InputProps) => {
+const Input = ({ placeholder, type, className, value, onChange }: InputProps) => {
      return (
           <input
                type={type}
@@ -14,6 +18,8 @@ const Input = ({ placeholder, type, className }: InputProps) => {
                placeholder:opacity-80 outline-none border-none pr-20
                text-base w-full ${className}`}
                placeholder={placeholder}
+               value={value}
+               onChange={onChange}
           />
      )
 }
