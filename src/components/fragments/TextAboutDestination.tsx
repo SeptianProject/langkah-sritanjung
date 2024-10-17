@@ -7,7 +7,7 @@ const TextAboutDestination = () => {
                </h1>
                <p className='md:w-[34rem] lg:w-[35rem] text-base font-medium 
                text-tertiary text-opacity-90 xs:text-lg'>
-                    We always offer curtains made from premium and high-quality materials.We always offer curtains made from premium and high-quality materials.
+                    Bersama Langkah Sritanjung, nikmati layanan pemandu wisata berbasis AI yang ramah dan akan selalu siap untuk memandu setiap langkahmu.
                </p>
           </div>
      )

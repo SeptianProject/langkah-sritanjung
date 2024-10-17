@@ -1,25 +1,123 @@
-import { assets, cardStackAssets, textHeader, textListTime } from '../../assets/asset'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { assets, cardStackAssets, textHeader } from '../../assets/asset'
 import TextHeader from '../fragments/TextHeader'
 import DotDashCustom from '../fragments/DotDashCustom'
 import CardStack from '../fragments/cards/CardStack'
+import { useParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
+import { baseUrl } from '../elements/Core';
+import ActionCard from '../layouts/detail/ActionCard';
+
+type CardDestination = {
+     name: string,
+     desc: string,
+     address: string,
+     telp: string,
+     price: string,
+     url: string,
+     slug?: string,
+     image: {
+          url: string,
+          name: string
+     }
+}
+
+interface DestinationDetail {
+     name: string;
+     image: string;
+     main: {
+          title: string,
+          timelist: {
+               title: string,
+               desc: string
+          }[],
+          actions: {
+               title: string
+          }[]
+     },
+     transportasis: CardDestination[],
+     homestays: CardDestination[]
+}
 
 
 const DetailPage = () => {
+     const { slug } = useParams<{ slug: string }>()
+     const [destinationDetail, setDestinationDetail] = useState<DestinationDetail | null>(null)
+
+     const fetchDestinationDetail = useCallback(async () => {
+          try {
+               const response = await axios.get(`${baseUrl}/destinasi-wisatas/${slug}`)
+               const data = response.data.data.attributes
+
+               setDestinationDetail({
+                    name: data.name,
+                    image: data.image?.data?.attributes?.url || assets.bgHome,
+                    main: {
+                         title: data.main.title,
+                         timelist: data.main.timelist.map((item: any) => ({
+                              title: item.title,
+                              desc: item.description
+                         })),
+                         actions: data.main.actions.map((item: any) => ({
+                              title: item.title
+                         }))
+                    },
+                    transportasis: data.transportasis.data.map((item: any) => ({
+                         name: item.attributes.name,
+                         desc: item.attributes.description,
+                         address: item.attributes.address,
+                         telp: item.attributes.noTelp,
+                         price: item.attributes.price,
+                         url: item.attributes.url,
+                         slug: item.attributes.slug,
+                         image: {
+                              url: item.attributes.image?.data?.attributes?.url,
+                              name: item.attributes.image?.data?.attributes?.name
+                         }
+                    })),
+                    homestays: data.homestays.data.map((item: any) => ({
+                         name: item.attributes.name,
+                         desc: item.attributes.description,
+                         address: item.attributes.address,
+                         telp: item.attributes.telp,
+                         price: item.attributes.price,
+                         url: item.attributes.url,
+                         image: {
+                              url: item.attributes.image?.data?.attributes?.url,
+                              name: item.attributes.image?.data?.attributes?.name
+                         }
+                    }))
+               })
+          } catch (error) {
+               console.error(error)
+          }
+     }, [slug])
+
+     useEffect(() => {
+          fetchDestinationDetail()
+     }, [fetchDestinationDetail])
+
+     if (!destinationDetail) {
+          return <div>Loading...</div>
+     }
+
      return (
           <div className='flex flex-col gap-y-12'>
                <div className='relative min-h-[25rem] bg-cover bg-center w-full flex flex-col 
-                    justify-center px-10 md:px-20 lg:min-h-screen' style={{ backgroundImage: `url(${assets.bgHome})` }}>
+                    justify-center px-10 md:px-20 lg:min-h-screen' style={{ backgroundImage: `url(${destinationDetail.image})` }}>
                     <div className='from-tertiary/80 to-transparent bg-gradient-to-tr from-55% to-95% absolute inset-0 ' />
                     <div className='z-10'>
                          <TextHeader headerItems={{
                               item: {
-                                   title: textHeader.headerDestinasi.title,
+                                   title: destinationDetail.name,
                                    description: textHeader.headerDestinasi.description
                               }
                          }} />
                     </div>
                     <div className='z-10 mt-5'>
-                         <button className='bg-primary text-white w-24 py-2 text-sm font-medium rounded-md'>
+                         <button
+                              className='bg-primary text-white w-24 py-2 text-sm font-medium rounded-md'>
                               Mulai Tur
                          </button>
                     </div>
@@ -30,13 +128,13 @@ const DetailPage = () => {
                          <h1 className='text-start text-secondary font-bold text-lg 
                                         md:text-xl w-72 md:w-[21.5rem] md:mx-auto
                                         md:text-center lg:text-start lg:mx-0 lg:text-2xl'>
-                              Kapan Waktu Terbaik Untuk Pergi Ke Kawah Ijen?
+                              {destinationDetail.main.title}
                          </h1>
                          <div className='flex gap-x-6 h-[32rem] w-[20rem] md:h-[29rem] md:gap-x-7 md:w-[30rem] md:mx-auto lg:mx-0'>
                               <DotDashCustom />
                               <div className='flex flex-col h-full justify-between md:gap-y-[2.5rem] md:justify-start'>
                                    {
-                                        textListTime.map((text, index) => (
+                                        destinationDetail.main.timelist.map((text, index) => (
                                              <div key={index} className='flex flex-col'>
                                                   <h3 className='text-base font-semibold text-tertiary text-opacity-90'>{text.title}</h3>
                                                   <p className='text-sm font-normal md:font-medium text-tertiary text-opacity-90'>{text.desc}</p>
@@ -48,23 +146,71 @@ const DetailPage = () => {
                     </div>
                     {/* Image */}
                     <div className='hidden lg:block lg:mt-10 xl:mt-7 relative w-full h-[26rem] xl:h-[27rem]'>
-                         <img src={assets.bgHome} className='object-cover h-full w-full rounded-tl-3xl rounded-br-3xl' alt="image" />
+                         <img src={destinationDetail.image} className='object-cover h-full w-full rounded-tl-3xl rounded-br-3xl' alt="image" />
                          <div className='bg-blueCard bg-opacity-30 absolute w-80 h-[30rem] xl:h-[31rem] -top-8 right-0 -z-10' />
                     </div>
                </div>
-               <div className='mt-10 md:mt-0 flex flex-col gap-y-16 px-10'>
+               {/* List Places Rekomen */}
+               <div className='flex flex-col gap-y-10 px-10'>
+                    <h1
+                         className="text-xl text-center font-bold w-60 md:w-80 mx-auto">
+                         Hal Yang Bisa Kamu Lakukan Di Tempat Ini
+                    </h1>
+                    <ActionCard
+                         actionItems={{
+                              item: {
+                                   value: destinationDetail.main.actions.map((action) => ({
+                                        title: action.title
+                                   }))
+                              }
+                         }}
+                    />
+               </div>
+               <div className='mt-10 md:mt-6 flex flex-col gap-y-16 px-10'>
+                    {/* Transportasi */}
                     <div className='flex flex-col gap-y-5'>
                          <h1 className='text-center text-xl font-bold w-60 mx-auto'>{cardStackAssets.cardTransport.cardTitle}</h1>
                          <CardStack
                               cardStackItems={{
-                                   item: { value: cardStackAssets.cardTransport.value }
-                              }} />
+                                   item: {
+                                        value: destinationDetail.transportasis.map((transport) => ({
+                                             img: transport.image.url,
+                                             title: transport.name,
+                                             price: transport.price
+                                        }))
+                                   }
+                              }}
+                         />
                     </div>
+                    {/* Homestay */}
                     <div className='flex flex-col gap-y-5'>
                          <h1 className='text-center text-xl font-bold  w-60 mx-auto'>{cardStackAssets.cardHomestay.cardTitle}</h1>
-                         <CardStack cardStackItems={{
-                              item: { value: cardStackAssets.cardHomestay.value }
-                         }} />
+                         <CardStack
+                              cardStackItems={{
+                                   item: {
+                                        value: destinationDetail.homestays.map((homestay) => ({
+                                             img: homestay.image.url,
+                                             title: homestay.name,
+                                             price: homestay.price
+                                        }))
+                                   }
+                              }}
+                         />
+                    </div>
+                    {/* Kuliner */}
+                    <div className='flex flex-col gap-y-5'>
+                         <h1 className='text-center text-xl font-bold  w-60 mx-auto'>{cardStackAssets.cardCulinary.cardTitle}</h1>
+                         <CardStack
+                              cardStackItems={{
+                                   item: {
+                                        value: destinationDetail.homestays.map((homestay) => ({
+                                             img: homestay.image.url,
+                                             title: homestay.name,
+                                             price: homestay.price
+                                        }))
+                                   }
+                              }}
+                         />
                     </div>
                </div>
           </div>

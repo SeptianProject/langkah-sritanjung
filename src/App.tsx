@@ -23,7 +23,7 @@ const App = () => {
       <Routes>
         <Route path="*" element={<Navigate to={'/'} replace />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/detail" element={<DetailPage />} />
+        <Route path="/detail/:slug" element={<DetailPage />} />
         <Route path="/tour-guide/:destination" element={<TourPage />} />
         <Route path="/detail-rekomendasi" element={<RekomendationPage />} />
       </Routes>

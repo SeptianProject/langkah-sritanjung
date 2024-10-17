@@ -1,16 +1,15 @@
-import { useNavigate } from "react-router-dom"
+
 
 type ButtonSearchProps = {
   text: string,
   clasName?: string
-  destination: string
+  onSearch: (text: string) => void
 }
 
-const ButtonSearch = ({ text, clasName, destination }: ButtonSearchProps) => {
-  const navigate = useNavigate()
+const ButtonSearch = ({ text, clasName, onSearch }: ButtonSearchProps) => {
 
   const handleOnClick = () => {
-    navigate(`/tour-guide/${destination}`)
+    onSearch(text)
   }
 
   return (
