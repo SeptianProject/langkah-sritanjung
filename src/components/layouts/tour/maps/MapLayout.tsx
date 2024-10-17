@@ -63,7 +63,7 @@ const MapLayout = () => {
                },
                (error) => {
                     console.error('Error get user location:', error)
-                    alert("Gagal mendapatkan lokasi. Pastikan izin lokasi diberikan dan perangkat mendukung.");
+                    // alert("Gagal mendapatkan lokasi. Pastikan izin lokasi diberikan dan perangkat mendukung.");
                },
                {
                     enableHighAccuracy: true,
