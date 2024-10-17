@@ -5,8 +5,47 @@ import DropdownButton from '../../fragments/dropdowns/DropdownButton'
 import CardHomestay from '../cards/CardHomestay'
 import { Element } from 'react-scroll'
 
-const HomeDestination = () => {
+type CategoryItem = {
+     id: number
+     name: string
+     slug: string
+}
+
+interface DestinasiWisata {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    image: {
+      data: {
+        attributes: {
+          url: string;
+        }
+      }
+    }
+  }
+}
+
+interface KategoriDetail {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    destinasi_wisatas: {
+      data: DestinasiWisata[];
+    }
+  }
+}
+
+type categoryProps = {
+     category: CategoryItem[]
+     detail: KategoriDetail | null
+}
+
+
+const HomeDestination = ({ category, detail } : categoryProps) => {
      const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
+
 
      const handleDropdownOpen = () => {
           setDropdownOpen(!dropdownOpen)
@@ -28,12 +67,12 @@ const HomeDestination = () => {
                     w-full h-60 lg:h-80
                     rounded-2xl py-5 px-2 sm:px-5'>
                          <TextGroup />
-                         <DropdownButton dropdownOpen={dropdownOpen} handleDropdownOpen={handleDropdownOpen} />
+                         <DropdownButton dropdownOpen={dropdownOpen} handleDropdownOpen={handleDropdownOpen} category={category} />
                     </div>
                </div>
                {/* Homestay Card */}
                <div className={`lg:min-h-screen px-10 lg:mt-20 ${dropdownOpen ? 'mt-60' : 'mt-0'} transition-all duration-300`}>
-                    <CardHomestay />
+                    <CardHomestay detail={detail} />
                </div>
           </Element>
      )

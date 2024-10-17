@@ -1,8 +1,37 @@
 import { useEffect, useState } from 'react'
 import CardStack from './CardStack'
-import { cardStackAssets } from '../../../assets/asset'
 
-const CardHomestay = () => {
+interface DestinasiWisata {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    image: {
+      data: {
+        attributes: {
+          url: string;
+        }
+      }
+    }
+  }
+}
+
+interface KategoriDetail {
+     id: number;
+  attributes: {
+    name: string;
+    slug: string;
+    destinasi_wisatas: {
+      data: DestinasiWisata[];
+    }
+  }
+}
+
+type itemProps = {
+     detail: KategoriDetail | null
+}
+
+const CardHomestay = ({ detail }: itemProps) => {
      const [isDesktop, setIsDesktop] = useState<boolean>(false)
 
      const handleResize = () => {
@@ -21,14 +50,10 @@ const CardHomestay = () => {
 
      return (
           <div className='flex flex-col gap-y-10'>
-               <CardStack cardStackItems={{
-                    item: { value: cardStackAssets.cardHomestay.value }
-               }} />
+               <CardStack detail={detail} />
                {
                     isDesktop &&
-                    <CardStack cardStackItems={{
-                         item: { value: cardStackAssets.cardHomestay.value }
-                    }} />
+                    <CardStack detail={detail} />
                }
                <button className='text-white bg-primary w-32 mx-auto py-2 rounded-lg'>
                     Lainnya
