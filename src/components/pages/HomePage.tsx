@@ -3,9 +3,46 @@ import CardText from '../fragments/cards/CardText'
 import Header from '../layouts/Header'
 import HomeDestination from '../layouts/home/HomeDestination'
 import HomeAbout from '../layouts/home/HomeAbout'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+
+interface Kategori {
+     id: number;
+     name: string;
+     path: string;
+}
 
 const HomePage = () => {
+     const [kategoris, setKategoris] = useState<Kategori[]>([]);
+     const [loading, setLoading] = useState<boolean>(true);
+     const [error, setError] = useState<string>("");
 
+     useEffect(() => {
+          const fetchKategoris = async () => {
+               try {
+                    const response = await axios.get<{ data: { id: number; attributes: { name: string; slug: string } }[] }>('https://striking-egg-9d9efcd8e6.strapiapp.com/api/kategori-wisatas?sort=id:asc');
+                    const data = response.data.data;
+
+                    const formattedKategori = data.map((item) => ({
+                         id: item.id,
+                         path: item.attributes.slug,
+                         name: item.attributes.name
+                    }))
+
+                    setKategoris(formattedKategori);
+                    console.log(formattedKategori)
+               } catch (error) {
+                    setError(axios.isAxiosError(error) ? error.message : 'An error occured');
+               } finally {
+                    setLoading(false);
+               }
+          ;}
+          
+          fetchKategoris();
+     }, [])
+
+     if (loading) return <p>LOading....</p>;
+     if (error) return <p>Error: {error}</p>;
 
      return (
           <div className='flex flex-col gap-y-20'>
@@ -17,9 +54,6 @@ const HomePage = () => {
                          <div className='z-10'>
                               <Header />
                          </div>
-                    </div>
-                    <div className='text-7xl'>
-                         <h1>nyoba nyoba nyoba</h1>
                     </div>
                     <div className='w-full'>
                          <CardText />
