@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { assets } from '../../assets/asset'
 import { useEffect, useState } from 'react'
 
 const LoadingMapLocation = () => {
      const navigate = useNavigate()
+     const { slug } = useParams<{ slug: string }>()
      const [loading, setLoading] = useState<boolean>(true)
 
      useEffect(() => {
@@ -13,16 +14,17 @@ const LoadingMapLocation = () => {
           }, duration)
 
           if (!loading) {
-               navigate('/detail/:slug')
+               navigate(`/tour-guide/${slug}`)
                clearTimeout(timer)
           }
-     })
+     }, [loading, navigate, slug])
 
      return (
-          <div className='min-h-screen max-w-full'>
+          <div className='min-h-screen max-w-full flex justify-center items-center'>
                {loading && (
                     <img src={assets.tourLoading}
-                         className="size-80 m-auto" alt="Loading..." />
+                         className="size-[20rem] m-auto"
+                         alt="Loading..." />
                )}
           </div>
      )

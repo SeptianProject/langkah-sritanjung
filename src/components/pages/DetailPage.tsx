@@ -114,7 +114,7 @@ const DetailPage = () => {
      }, [fetchDestinationDetail])
 
      const handleDetailClick = (item: CardDestination, type: 'transportasi' | 'homestay' | 'kuliner') => {
-          navigate(`/detail/${type}/${item.slug}`);
+          navigate(`/detail/${slug}/${type}/${item.slug}`);
      };
 
      const handleContactClick = (url: string) => {
@@ -142,7 +142,7 @@ const DetailPage = () => {
                     </div>
                     <div className='z-10 mt-5'>
                          <button
-                              onClick={() => navigate(`/tour-guide/${slug}`)}
+                              onClick={() => navigate(`/loading-tour/${slug}`)}
                               className='bg-primary text-white w-24 py-2 text-sm font-medium rounded-md'>
                               Mulai Tur
                          </button>
