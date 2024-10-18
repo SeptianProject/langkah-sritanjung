@@ -4,7 +4,7 @@ import CardStackItems from '../CardStackItems'
 import { useEffect, useState } from 'react'
 import ButtonSecondary from '../../elements/button/ButtonSecondary'
 
-type CardStackProps = {
+interface CardStackProps {
      cardStackItems: {
           item: {
                value: {
@@ -12,8 +12,8 @@ type CardStackProps = {
                     img: string
                     title: string
                     price: string
-                    onDetailClick: () => void
-                    onContactClick: () => void
+                    onDetailClick?: () => void
+                    onContactClick?: () => void
                }[]
           }
      }

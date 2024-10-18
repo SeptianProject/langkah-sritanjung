@@ -1,6 +1,6 @@
 
 type ButtonSecondaryProps = {
-     onClick: () => void
+     onClick?: () => void
      text: string
 }
 
