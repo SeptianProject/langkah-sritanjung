@@ -65,7 +65,7 @@ const DropdownButton = ({ dropdownOpen, categories, handleDropdownOpen, onSelect
                               </button>
                          </div>
                          {dropdownOpen && (
-                              <div className='absolute mt-[6.2rem] flex flex-col gap-y-[5px] w-40 '>
+                              <div className='absolute mt-[6.2rem] xs:mt-[7.7rem] md:mt-0 flex flex-col gap-y-[5px] w-40 '>
                                    {categories.map((category) => (
                                         <button
                                              key={category.slug} onClick={() => handleSelectCategory(category)}

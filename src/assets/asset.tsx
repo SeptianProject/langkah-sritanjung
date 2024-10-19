@@ -182,7 +182,7 @@ export const footerAssets = {
             }
         ]
     },
-    textFooter: '2024Regedua | All rights reserved'
+    textFooter: '2024Sritanjung | All rights reserved'
 }
 
 export const cardStackAssets = {

@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react'
-import CardBasic from '../../fragments/cards/CardBasic'
 import TextGroup from '../../elements/text/TextGroup'
 import DropdownButton from '../../fragments/dropdowns/DropdownButton'
 import CardHomeDestination from '../cards/CardHomeDestination'
 import Loading from 'react-loading'
 import axios from 'axios'
 import { baseUrl } from '../../elements/Core'
+import BentoGrid from '../../fragments/cards/BentoGrid'
+import { BounceInBottom } from '../../animation/BounceAnimate'
 
 type Category = {
      id: string
@@ -92,11 +93,13 @@ const HomeDestination = () => {
           <div id='destinasi' className='flex flex-col gap-y-20'>
                {/* Card Bento grid */}
                <div className='flex flex-col gap-y-14 items-center lg:min-h-screen'>
-                    <h1 className='text-xl xs:text-2xl font-bold w-80 xs:w-96 text-center 
-                    md:text-3xl md:w-96 lg:text-3xl lg:w-[30rem]'>
-                         Destinasi Wisata Terfavorit Bulan Ini
-                    </h1>
-                    <CardBasic />
+                    <BounceInBottom delayVal={0}>
+                         <h1 className='text-xl xs:text-2xl font-bold w-80 xs:w-96 text-center 
+                    md:text-3xl md:w-96 lg:text-3xl lg:w-[30rem] text-tertiary text-opacity-90'>
+                              Destinasi Wisata Terfavorit Bulan Ini
+                         </h1>
+                    </BounceInBottom>
+                    <BentoGrid />
                </div>
                {/* Cardtext blue Dropdown */}
                <div className='lg:min-h-full lg:w-full px-10 lg:mt-10'>

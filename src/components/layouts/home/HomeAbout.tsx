@@ -5,7 +5,7 @@ import StackImageDestination from '../../fragments/StackImagDestination'
 const HomeAbout = () => {
      return (
           <section id='tentang-kami' className='flex flex-col items-center px-10
-          md:mt-5 lg:flex-row lg:justify-between
+          md:mt-5 lg:mt-0 lg:flex-row lg:justify-between
           lg:max-w-full lg:min-h-screen'>
                <div className=''>
                     <StackImageDestination />

@@ -51,7 +51,7 @@ const NavItem = ({ className, select, unSelect }: NavItemProps) => {
                               offset={
                                    item.link === 'beranda' ? -100 : -50}
                               className={`font-poppins font-light text-sm tracking-wide transform transla
-                              md:text-base md:font-normal cursor-pointer text-opacity-90
+                              md:text-base md:font-normal cursor-pointer text-opacity-90 px-3
                               hover:text-white transition-all duration-500
                               ${isDesktop ? 'text-white' : 'text-secondary hover:bg-secondary'}
                               ${className} ${location.pathname === item.link ? { select } : { unSelect }}`}>
@@ -60,7 +60,7 @@ const NavItem = ({ className, select, unSelect }: NavItemProps) => {
                     ) : (<RouterLink key={index} to={'/'}
                          onClick={() => handleNavClick(item.link)}
                          className={`font-poppins font-light text-sm tracking-wide transform transla
-                              md:text-base md:font-normal cursor-pointer text-opacity-90
+                              md:text-base md:font-normal cursor-pointer text-opacity-90 px-3
                               hover:text-white transition-all duration-500
                               ${isDesktop ? 'text-white' : 'text-secondary hover:bg-secondary'}
                               ${className} ${location.pathname === item.link ? { select } : { unSelect }}`}>
