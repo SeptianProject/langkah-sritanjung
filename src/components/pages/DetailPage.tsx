@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../elements/Core';
 import ActionCard from '../layouts/detail/ActionCard';
+import Loading from 'react-loading';
 
 type CardDestination = {
      name: string,
@@ -41,12 +42,19 @@ interface DestinationDetail {
      kuliners: CardDestination[]
 }
 
-const DetailPage = () => {
+interface LoadingProps {
+     setIsLoading: (isLoading: boolean) => void
+}
+
+const DetailPage = ({ setIsLoading }: LoadingProps) => {
      const { slug } = useParams<{ slug: string }>()
      const navigate = useNavigate()
      const [destinationDetail, setDestinationDetail] = useState<DestinationDetail | null>(null)
+     const [loading, setLoading] = useState(true)
 
      const fetchDestinationDetail = useCallback(async () => {
+          setIsLoading(true)
+          setLoading(true)
           try {
                const response = await axios.get(`${baseUrl}/destinasi-wisatas/${slug}`)
                const data = response.data.data.attributes
@@ -106,8 +114,11 @@ const DetailPage = () => {
                })
           } catch (error) {
                console.error(error)
+          } finally {
+               setIsLoading(false)
+               setLoading(false)
           }
-     }, [slug])
+     }, [slug, setIsLoading])
 
      useEffect(() => {
           fetchDestinationDetail()
@@ -123,8 +134,14 @@ const DetailPage = () => {
           }
      };
 
-     if (!destinationDetail) {
-          return <div>Loading...</div>
+     if (!destinationDetail || loading) {
+          return <div>
+               <Loading className="min-h-screen flex justify-center items-center m-auto"
+                    color="#EA8104"
+                    height={60}
+                    width={60}
+                    type="cylon" />
+          </div>
      }
 
      return (
@@ -157,7 +174,7 @@ const DetailPage = () => {
                               {destinationDetail.main.title}
                          </h1>
                          <div className='flex gap-x-6 h-[32rem] w-[20rem] md:h-[29rem] md:gap-x-7 md:w-[30rem] md:mx-auto lg:mx-0'>
-                              <DotDashCustom />
+                              <DotDashCustom itemCount={destinationDetail.main.timelist.length} />
                               <div className='flex flex-col h-full justify-between md:gap-y-[2.5rem] md:justify-start'>
                                    {
                                         destinationDetail.main.timelist.map((text, index) => (
@@ -192,7 +209,7 @@ const DetailPage = () => {
                          }}
                     />
                </div>
-               <div className='mt-10 md:mt-6 flex flex-col gap-y-16 px-10'>
+               <div className='mt-10 md:mt-6 flex flex-col gap-y-16 px-5'>
                     {/* Transportasi */}
                     <div className='flex flex-col gap-y-5'>
                          <h1 className='text-center text-xl font-bold w-60 mx-auto'>{cardStackAssets.cardTransport.cardTitle}</h1>

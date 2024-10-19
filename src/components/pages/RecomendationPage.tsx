@@ -4,6 +4,7 @@ import TextDetailRekomen from "../elements/text/TextDetailRekomen"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../elements/Core";
+import Loading from "react-loading";
 
 interface RecommendationDetail {
      name: string,
@@ -18,31 +19,30 @@ interface RecommendationDetail {
      }
 }
 
-// type RecommendationDetailType = {
-//      transportasis: RecommendationDetail[],
-//      homestays?: RecommendationDetail[],
-//      kuliners?: RecommendationDetail[],
-// }
-
 type ParamsType = {
      slug: string
      type: string
      name: string
 }
 
-const DetailRekom = () => {
+interface LoadingProps {
+     setIsLoading: (isLoading: boolean) => void
+}
+
+const DetailRekom = ({ setIsLoading }: LoadingProps) => {
      const { slug, type, name } = useParams<ParamsType>()
      const [recommendation, setRecommendation] = useState<RecommendationDetail | null>(null);
+     const [loading, setLoading] = useState(true)
 
      useEffect(() => {
           const fetchDetailData = async () => {
+               setIsLoading(true)
+               setLoading(true)
                try {
                     const response = await axios.get(`${baseUrl}/destinasi-wisatas/${slug}`);
                     const data = response.data.data.attributes
-                    // console.log(data);
 
                     let selectedRecommendation
-
                     switch (type) {
                          case 'transportasi':
                               selectedRecommendation = data.transportasis.data.find((item: any) => item.attributes.slug === name);
@@ -73,15 +73,25 @@ const DetailRekom = () => {
                     }
                } catch (error) {
                     console.error('Error fetching detail data:', error);
+               } finally {
+                    setIsLoading(false)
+                    setLoading(false)
                }
           };
 
           fetchDetailData();
-     }, [slug, type, name]);
+     }, [slug, type, name, setIsLoading]);
 
-     if (!recommendation) {
-          return <div>Loading...</div>;
+     if (!recommendation || loading) {
+          return <div>
+               <Loading className="min-h-screen flex justify-center items-center m-auto"
+                    color="#EA8104"
+                    height={60}
+                    width={60}
+                    type="cylon" />
+          </div>
      }
+
 
      return (
           <div className="p-10 flex flex-col gap-y-10 lg:flex-row lg:gap-x-20 xl:gap-x-20

@@ -2,83 +2,87 @@ import { useEffect, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
 
 
-interface Category {
-     id: number
-     attributes: {
-          nama: string
-          slug: string
-     }
+type Category = {
+     name: string
+     slug: string
 }
 
 type DropdownButtonProps = {
      dropdownOpen: boolean
      handleDropdownOpen: () => void
      categories: Category[]
-     selectedCategory: string
-     onCategorySelect: (slug: string) => void
+     onSelectCategory: (slug: string) => void
 }
 
-const DropdownButton =
-     ({
-          dropdownOpen,
-          handleDropdownOpen,
-          categories,
-          selectedCategory,
-          onCategorySelect
-     }: DropdownButtonProps) => {
-          const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth >= 768)
+const DropdownButton = ({ dropdownOpen, categories, handleDropdownOpen, onSelectCategory }: DropdownButtonProps) => {
+     const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth >= 768)
+     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
 
-          useEffect(() => {
-               const handleResize = () => setIsDesktop(window.innerWidth >= 768)
-               window.addEventListener('resize', handleResize)
-               return () => {
-                    window.removeEventListener('resize', handleResize)
-               }
-          }, [])
+     const handleSelectCategory = (category: Category) => {
+          setSelectedCategory(category)
+          onSelectCategory(category.slug)
+     }
 
-          const selectedCategoryName = categories.find(cat => cat.attributes.slug === selectedCategory)?.attributes.nama || 'Pilih Kategori'
+     useEffect(() => {
+          if (categories.length > 0) {
+               setSelectedCategory(categories[0])
+          }
+     }, [categories])
 
-          return (
-               <>{isDesktop ? (
-                    <div className='hidden md:flex justify-center mt-20 gap-x-5 lg:gap-x-10 lg:mt-16'>
-                         {categories.map((category) => (
-                              <button key={category.id}
-                                   className={`text-primary bg-white border border-primary 
-                                        md:py-2 md:w-full lg:py-4 lg:w-40
+     useEffect(() => {
+          const handleResize = () => setIsDesktop(window.innerWidth >= 768)
+          window.addEventListener('resize', handleResize)
+          return () => {
+               window.removeEventListener('resize', handleResize)
+          }
+     }, [])
+
+     return (
+          <>
+               {
+                    isDesktop ? (
+                         <div className='hidden md:flex justify-center mt-20 gap-x-5 lg:gap-x-10 lg:mt-16'>
+                              {categories.map((category) => (
+                                   <button key={category.slug} onClick={() => handleSelectCategory(category)}
+                                        className={` border border-primary 
+                                        md:py-2 md:w-full lg:py-4 lg:w-40 transition-all duration-500
                                         rounded-bl-xl rounded-tr-xl font-semibold
-                                        ${category.attributes.slug === selectedCategory ? 'bg-primary text-white' : ''}`}
-                                   onClick={() => onCategorySelect(category.attributes.slug)}>
-                                   {category.attributes.nama}
-                              </button>
-                         ))}
-                    </div>
-               ) : (
-                    <div className='md:hidden flex flex-col justify-center w-40 mx-auto mt-10 xs:mt-16 sm:mt-[7rem]'>
-                         <button onClick={handleDropdownOpen}
-                              className='text-primary bg-white border border-primary 
+                                        ${selectedCategory?.slug === category.slug ? 'bg-primary text-white' : 'text-primary bg-white'}`}>
+                                        {category.name}
+                                   </button>
+                              ))}
+                         </div>
+                    ) : (<div className='flex justify-center'>
+                         <div className='md:hidden flex flex-col justify-center w-40 mx-auto mt-10 xs:mt-16 sm:mt-[7rem]'>
+                              <button onClick={handleDropdownOpen}
+                                   className='text-primary bg-white border border-primary 
                                    py-3 px-3 w-full rounded-bl-xl rounded-tr-xl flex 
-                                   items-center justify-between font-semibold'>
-                              {selectedCategoryName}
-                              <BiChevronDown className={`text-primary 
+                                   items-center justify-around font-semibold'>
+                                   {selectedCategory?.slug ? selectedCategory.name : 'Kategori'}
+                                   <BiChevronDown className={`text-primary
                               size-7 transform transition-all duration-300
                               ${dropdownOpen ? 'rotate-0' : '-rotate-90'}`} />
-                         </button>
+                              </button>
+                         </div>
                          {dropdownOpen && (
-                              <div className='absolute mt-12 w-40 bg-white border border-primary rounded-bl-xl rounded-tr-xl'>
+                              <div className='absolute mt-[6.2rem] flex flex-col gap-y-[5px] w-40 '>
                                    {categories.map((category) => (
                                         <button
-                                             key={category.id}
-                                             className='w-full text-left px-3 py-2 hover:bg-gray-100'
-                                             onClick={() => onCategorySelect(category.attributes.slug)}
-                                        >
-                                             {category.attributes.nama}
+                                             key={category.slug} onClick={() => handleSelectCategory(category)}
+                                             className={`border border-primary transition-all duration-700  
+                                                  py-3 px-7 w-full rounded-bl-xl rounded-tr-xl flex 
+                                                  items-center justify-between font-semibold
+                                                  ${selectedCategory?.slug === category.slug
+                                                       ? ' bg-white text-primary border border-primary'
+                                                       : ''}`}>
+                                             {category.name}
                                         </button>
                                    ))}
                               </div>
                          )}
-                    </div>
-               )}</>
-          )
-     }
+                    </div>)}
+          </>
+     )
+}
 
 export default DropdownButton

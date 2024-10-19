@@ -54,9 +54,10 @@ const Navbar = () => {
                                 onClick={handleIsOpen}
                                 className='size-10 text-white' />
                             <div className='relative w-32 '>
-                                <div className='absolute top-2 flex flex-col text-center w-full overflow-hidden bg-white shadow-lg shadow-secondary rounded-bl-xl rounded-tr-xl'>
+                                <div className='absolute top-2 flex flex-col text-start w-full overflow-hidden 
+                                bg-white shadow-lg shadow-secondary rounded-bl-xl rounded-tr-xl'>
                                     <NavItem className='text-xs font-medium hover:text-white hover:bg-secondary h-full py-3'
-                                        select='bg-secondary text-white' unSelect='text-black' />
+                                        select='' unSelect='text-tertiary' />
                                 </div>
                             </div>
                         </>
