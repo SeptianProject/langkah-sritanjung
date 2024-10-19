@@ -6,10 +6,6 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-  display: none;
-}
-
 h1,
 h2,
 h3,
@@ -23,4 +19,24 @@ p,
 button,
 input {
   @apply font-dmSans;
+}
+
+.split-bg::before,
+.split-bg::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: white;
+  transition: all 1s ease;
+}
+.split-bg::before {
+  top: 0;
+  transform: translateY(-100%);
+}
+
+.split-bg::after {
+  bottom: 0;
+  transform: translateY(100%);
 }

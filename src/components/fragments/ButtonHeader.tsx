@@ -5,6 +5,7 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl } from '../elements/Core';
 import { useNavigate } from 'react-router-dom';
+import { BounceInRight } from '../animation/BounceAnimate';
 
 interface Destination {
      path: string;
@@ -15,6 +16,7 @@ const ButtonHeader = () => {
      const [destinations, setDestinations] = useState<Destination[]>([])
      const [isDesktop, setIsDesktop] = useState<boolean>(false)
      const [searchTerm, setSearchTerm] = useState<string>('')
+     const [loading, setLoading] = useState<boolean>(true)
      const navigate = useNavigate()
 
      const handleResize = () => {
@@ -29,6 +31,7 @@ const ButtonHeader = () => {
 
      useEffect(() => {
           const fetchDestinations = async () => {
+               setLoading(true)
                try {
                     const response = await axios.get(`${baseUrl}/destinasi-wisatas?sort=id:asc`)
                     const data = response.data
@@ -41,6 +44,8 @@ const ButtonHeader = () => {
                     setDestinations(formattedDestination)
                } catch (error) {
                     console.error(error)
+               } finally {
+                    setLoading(false)
                }
           }
           fetchDestinations()
@@ -74,13 +79,28 @@ const ButtonHeader = () => {
                     onChange={handleSearch}
                     onClick={handleOnClick} />
                <div className='mt-4 flex gap-x-4'>
-                    {destinations.slice(0, isDesktop ? 3 : 2).map((destination, index) => (
-                         <ButtonSearch
-                              key={index}
-                              text={destination.text}
-                              onSearch={handleButtonSearch}
-                              clasName='px-4 py-2' />
-                    ))}
+                    {loading ? (
+                         <>
+                              {Array.from({ length: isDesktop ? 3 : 2 }).map((_, index) => (
+                                   <BounceInRight key={index} delayVal={index ? index * 1 : 0.5}>
+                                        <ButtonSearch onSearch={() => { }}
+                                             text={''}
+                                             clasName='px-[4.3rem] py-4' />
+                                   </BounceInRight>
+                              ))}
+                         </>) : (
+                         <>
+                              {destinations.slice(0, isDesktop ? 3 : 2).map((destination, index) => (
+                                   <BounceInRight key={index} delayVal={index ? index * 1 : 0.5}>
+                                        <ButtonSearch
+                                             key={index}
+                                             text={destination.text}
+                                             onSearch={handleButtonSearch}
+                                             clasName='px-4 py-2' />
+                                   </BounceInRight>
+                              ))}
+                         </>
+                    )}
                </div>
           </div>
      )

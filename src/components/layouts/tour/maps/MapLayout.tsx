@@ -8,6 +8,7 @@ import { assets } from "../../../../assets/asset";
 import axios from "axios";
 import { Params, useParams } from "react-router-dom";
 import { baseUrl, mapApiKey } from "../../../elements/Core";
+import Loading from "react-loading";
 
 type LatLngLiteral = google.maps.LatLngLiteral;
 type MapOptions = google.maps.MapOptions;
@@ -116,9 +117,13 @@ const MapLayout = ({ setLoading }: { setLoading: (loading: boolean) => void }) =
      }, [userLocation, destinationData])
 
      if (!isLoaded || !userLocation || !destinationData) return (
-          <div>
-               <img src={assets.tourLoading}
-                    className="size-40 m-auto" alt="Loading..." />
+          <div className="flex flex-col justify-center items-center w-full h-full">
+               <Loading className="text-center"
+                    color="#233028"
+                    height={50}
+                    width={50}
+                    type="cylon" />
+               <h1 className="text-center">Sedang memuat...</h1>
           </div>
      )
 

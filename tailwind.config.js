@@ -21,7 +21,7 @@ export default {
         blueCard: '#64CCC5'
       },
       boxShadow: {
-        solidFlat: '5px 5px 1px rgba(0, 0, 0, 0.25)',
+        solidFlat: '5px 5px 0px rgba(0, 0, 0, 0.25)',
       }
     },
   },

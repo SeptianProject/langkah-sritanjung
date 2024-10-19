@@ -3,11 +3,12 @@ import { assets, cardStackAssets, textHeader } from '../../assets/asset'
 import TextHeader from '../fragments/TextHeader'
 import DotDashCustom from '../fragments/DotDashCustom'
 import CardStack from '../fragments/cards/CardStack'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { baseUrl } from '../elements/Core';
 import ActionCard from '../layouts/detail/ActionCard';
+import Loading from 'react-loading';
 
 type CardDestination = {
      name: string,
@@ -16,7 +17,7 @@ type CardDestination = {
      telp: string,
      price: string,
      url: string,
-     slug?: string,
+     slug: string,
      image: {
           url: string,
           name: string
@@ -37,15 +38,23 @@ interface DestinationDetail {
           }[]
      },
      transportasis: CardDestination[],
-     homestays: CardDestination[]
+     homestays: CardDestination[],
+     kuliners: CardDestination[]
 }
 
+interface LoadingProps {
+     setIsLoading: (isLoading: boolean) => void
+}
 
-const DetailPage = () => {
+const DetailPage = ({ setIsLoading }: LoadingProps) => {
      const { slug } = useParams<{ slug: string }>()
+     const navigate = useNavigate()
      const [destinationDetail, setDestinationDetail] = useState<DestinationDetail | null>(null)
+     const [loading, setLoading] = useState(true)
 
      const fetchDestinationDetail = useCallback(async () => {
+          setIsLoading(true)
+          setLoading(true)
           try {
                const response = await axios.get(`${baseUrl}/destinasi-wisatas/${slug}`)
                const data = response.data.data.attributes
@@ -83,6 +92,20 @@ const DetailPage = () => {
                          telp: item.attributes.telp,
                          price: item.attributes.price,
                          url: item.attributes.url,
+                         slug: item.attributes.slug,
+                         image: {
+                              url: item.attributes.image?.data?.attributes?.url,
+                              name: item.attributes.image?.data?.attributes?.name
+                         }
+                    })),
+                    kuliners: data.kuliners.data.map((item: any) => ({
+                         name: item.attributes.name,
+                         desc: item.attributes.description,
+                         address: item.attributes.address,
+                         telp: item.attributes.telp,
+                         price: item.attributes.price,
+                         url: item.attributes.url,
+                         slug: item.attributes.slug,
                          image: {
                               url: item.attributes.image?.data?.attributes?.url,
                               name: item.attributes.image?.data?.attributes?.name
@@ -91,21 +114,40 @@ const DetailPage = () => {
                })
           } catch (error) {
                console.error(error)
+          } finally {
+               setIsLoading(false)
+               setLoading(false)
           }
-     }, [slug])
+     }, [slug, setIsLoading])
 
      useEffect(() => {
           fetchDestinationDetail()
      }, [fetchDestinationDetail])
 
-     if (!destinationDetail) {
-          return <div>Loading...</div>
+     const handleDetailClick = (item: CardDestination, type: 'transportasi' | 'homestay' | 'kuliner') => {
+          navigate(`/detail/${slug}/${type}/${item.slug}`);
+     };
+
+     const handleContactClick = (url: string) => {
+          if (url) {
+               window.open(url, '_blank');
+          }
+     };
+
+     if (!destinationDetail || loading) {
+          return <div>
+               <Loading className="min-h-screen flex justify-center items-center m-auto"
+                    color="#EA8104"
+                    height={60}
+                    width={60}
+                    type="cylon" />
+          </div>
      }
 
      return (
           <div className='flex flex-col gap-y-12'>
-               <div className='relative min-h-[25rem] bg-cover bg-center w-full flex flex-col 
-                    justify-center px-10 md:px-20 lg:min-h-screen' style={{ backgroundImage: `url(${destinationDetail.image})` }}>
+               <div className='relative min-h-[25rem] lg:min-h-[30rem] xl:min-h-[35rem] bg-cover bg-center w-full flex flex-col 
+                    justify-center px-10 md:px-20' style={{ backgroundImage: `url(${destinationDetail.image})` }}>
                     <div className='from-tertiary/80 to-transparent bg-gradient-to-tr from-55% to-95% absolute inset-0 ' />
                     <div className='z-10'>
                          <TextHeader headerItems={{
@@ -117,6 +159,7 @@ const DetailPage = () => {
                     </div>
                     <div className='z-10 mt-5'>
                          <button
+                              onClick={() => navigate(`/loading-tour/${slug}`)}
                               className='bg-primary text-white w-24 py-2 text-sm font-medium rounded-md'>
                               Mulai Tur
                          </button>
@@ -131,7 +174,7 @@ const DetailPage = () => {
                               {destinationDetail.main.title}
                          </h1>
                          <div className='flex gap-x-6 h-[32rem] w-[20rem] md:h-[29rem] md:gap-x-7 md:w-[30rem] md:mx-auto lg:mx-0'>
-                              <DotDashCustom />
+                              <DotDashCustom itemCount={destinationDetail.main.timelist.length} />
                               <div className='flex flex-col h-full justify-between md:gap-y-[2.5rem] md:justify-start'>
                                    {
                                         destinationDetail.main.timelist.map((text, index) => (
@@ -166,17 +209,20 @@ const DetailPage = () => {
                          }}
                     />
                </div>
-               <div className='mt-10 md:mt-6 flex flex-col gap-y-16 px-10'>
+               <div className='mt-10 md:mt-6 flex flex-col gap-y-16 px-5'>
                     {/* Transportasi */}
                     <div className='flex flex-col gap-y-5'>
-                         <h1 className='text-center text-xl font-bold w-60 mx-auto'>{cardStackAssets.cardTransport.cardTitle}</h1>
+                         <h1 className='text-center text-xl font-bold w-60  sm:w-full mx-auto'>{cardStackAssets.cardTransport.cardTitle}</h1>
                          <CardStack
                               cardStackItems={{
                                    item: {
                                         value: destinationDetail.transportasis.map((transport) => ({
+                                             id: transport.slug!,
                                              img: transport.image.url,
                                              title: transport.name,
-                                             price: transport.price
+                                             price: transport.price,
+                                             onDetailClick: () => handleDetailClick(transport, 'transportasi'),
+                                             onContactClick: () => handleContactClick(transport.url)
                                         }))
                                    }
                               }}
@@ -184,14 +230,17 @@ const DetailPage = () => {
                     </div>
                     {/* Homestay */}
                     <div className='flex flex-col gap-y-5'>
-                         <h1 className='text-center text-xl font-bold  w-60 mx-auto'>{cardStackAssets.cardHomestay.cardTitle}</h1>
+                         <h1 className='text-center text-xl font-bold w-60  sm:w-full mx-auto'>{cardStackAssets.cardHomestay.cardTitle}</h1>
                          <CardStack
                               cardStackItems={{
                                    item: {
                                         value: destinationDetail.homestays.map((homestay) => ({
+                                             id: homestay.slug!,
                                              img: homestay.image.url,
                                              title: homestay.name,
-                                             price: homestay.price
+                                             price: homestay.price,
+                                             onDetailClick: () => handleDetailClick(homestay, 'homestay'),
+                                             onContactClick: () => handleContactClick(homestay.url)
                                         }))
                                    }
                               }}
@@ -199,14 +248,17 @@ const DetailPage = () => {
                     </div>
                     {/* Kuliner */}
                     <div className='flex flex-col gap-y-5'>
-                         <h1 className='text-center text-xl font-bold  w-60 mx-auto'>{cardStackAssets.cardCulinary.cardTitle}</h1>
+                         <h1 className='text-center text-xl font-bold  w-40 sm:w-full mx-auto'>{cardStackAssets.cardCulinary.cardTitle}</h1>
                          <CardStack
                               cardStackItems={{
                                    item: {
-                                        value: destinationDetail.homestays.map((homestay) => ({
-                                             img: homestay.image.url,
-                                             title: homestay.name,
-                                             price: homestay.price
+                                        value: destinationDetail.kuliners.map((kuliner) => ({
+                                             id: kuliner.slug!,
+                                             img: kuliner.image.url,
+                                             title: kuliner.name,
+                                             price: kuliner.price,
+                                             onDetailClick: () => handleDetailClick(kuliner, 'kuliner'),
+                                             onContactClick: () => handleContactClick(kuliner.url)
                                         }))
                                    }
                               }}
