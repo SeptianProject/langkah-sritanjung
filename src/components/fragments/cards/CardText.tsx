@@ -4,8 +4,6 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { useEffect, useState } from "react";
 import { settings } from "../../elements/carousel/CarouselSetting";
-import { BounceInBottom } from "../../animation/BounceAnimate";
-
 
 const CardText = () => {
      const [isCardDesktop, setIsCardDesktop] = useState<boolean>(false)
@@ -32,10 +30,8 @@ const CardText = () => {
                               {textCardCategory.map((item, index) => (
                                    <div key={index} className="bg-blueCard w-full mx-auto py-8 
                                    lg:px-8 xl:px-16 h-60 bg-opacity-15">
-                                        <BounceInBottom key={index} delayVal={index * 0.5}>
-                                             <h1 className="text-2xl font-bold text-tertiary text-opacity-90">{item.title}</h1>
-                                             <p className="text-base font-normal w-48 mt-2">{item.desc}</p>
-                                        </BounceInBottom>
+                                        <h1 className="text-2xl font-bold text-tertiary text-opacity-90">{item.title}</h1>
+                                        <p className="text-base font-normal w-48 mt-2">{item.desc}</p>
                                    </div>
                               ))}
                          </div>

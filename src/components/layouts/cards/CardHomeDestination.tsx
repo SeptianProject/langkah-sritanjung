@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import CardStackHome from './CardStackHome'
+import { BounceInBottom } from '../../animation/BounceAnimate'
 
 type HomeDestinationProps = {
      cardStackItems: {
@@ -35,13 +36,15 @@ const CardHomeDestination = ({ cardStackItems, onClick }: HomeDestinationProps) 
      return (
           <div className='flex flex-col gap-y-10'>
                <CardStackHome cardStackItems={displayedItems} />
-               {isDesktop && cardStackItems.length > 3 && (
-                    <button
-                         onClick={handleShowAll}
-                         className='text-white bg-primary w-32 mx-auto py-2 rounded-lg'>
-                         {showAll ? 'Sembunyikan' : 'Lihat Semua'}
-                    </button>
-               )}
+               <BounceInBottom delayVal={0}>
+                    {isDesktop && cardStackItems.length > 3 && (
+                         <button
+                              onClick={handleShowAll}
+                              className='text-white bg-primary w-32 mx-auto flex justify-center py-2 rounded-lg '>
+                              {showAll ? 'Sembunyikan' : 'Lihat Semua'}
+                         </button>
+                    )}
+               </BounceInBottom>
           </div>
      )
 }

@@ -146,8 +146,8 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
 
      return (
           <div className='flex flex-col gap-y-12'>
-               <div className='relative min-h-[25rem] bg-cover bg-center w-full flex flex-col 
-                    justify-center px-10 md:px-20 lg:min-h-screen' style={{ backgroundImage: `url(${destinationDetail.image})` }}>
+               <div className='relative min-h-[25rem] lg:min-h-[30rem] xl:min-h-[35rem] bg-cover bg-center w-full flex flex-col 
+                    justify-center px-10 md:px-20' style={{ backgroundImage: `url(${destinationDetail.image})` }}>
                     <div className='from-tertiary/80 to-transparent bg-gradient-to-tr from-55% to-95% absolute inset-0 ' />
                     <div className='z-10'>
                          <TextHeader headerItems={{
@@ -212,7 +212,7 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
                <div className='mt-10 md:mt-6 flex flex-col gap-y-16 px-5'>
                     {/* Transportasi */}
                     <div className='flex flex-col gap-y-5'>
-                         <h1 className='text-center text-xl font-bold w-60 mx-auto'>{cardStackAssets.cardTransport.cardTitle}</h1>
+                         <h1 className='text-center text-xl font-bold w-60  sm:w-full mx-auto'>{cardStackAssets.cardTransport.cardTitle}</h1>
                          <CardStack
                               cardStackItems={{
                                    item: {
@@ -230,7 +230,7 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
                     </div>
                     {/* Homestay */}
                     <div className='flex flex-col gap-y-5'>
-                         <h1 className='text-center text-xl font-bold  w-60 mx-auto'>{cardStackAssets.cardHomestay.cardTitle}</h1>
+                         <h1 className='text-center text-xl font-bold w-60  sm:w-full mx-auto'>{cardStackAssets.cardHomestay.cardTitle}</h1>
                          <CardStack
                               cardStackItems={{
                                    item: {
@@ -248,7 +248,7 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
                     </div>
                     {/* Kuliner */}
                     <div className='flex flex-col gap-y-5'>
-                         <h1 className='text-center text-xl font-bold  w-60 mx-auto'>{cardStackAssets.cardCulinary.cardTitle}</h1>
+                         <h1 className='text-center text-xl font-bold  w-40 sm:w-full mx-auto'>{cardStackAssets.cardCulinary.cardTitle}</h1>
                          <CardStack
                               cardStackItems={{
                                    item: {

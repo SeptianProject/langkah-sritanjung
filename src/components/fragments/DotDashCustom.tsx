@@ -13,7 +13,7 @@ const DotDashCustom = ({ itemCount }: DotDashCustomProps) => {
                {counts.map((num) => (
                     <div key={num} className='flex flex-col items-center'>
                          <DotElement className='shadow-solidFlat shadow-secondary flex justify-center items-center'>
-                              <h1 className='text-white font-semibold'>{num}</h1>
+                              <h1 className='text-white font-semibold text-xl'>{num}</h1>
                          </DotElement>
                          {num < itemCount && <DashVertical />}
                     </div>

@@ -93,7 +93,7 @@ const HomeDestination = () => {
           <div id='destinasi' className='flex flex-col gap-y-20'>
                {/* Card Bento grid */}
                <div className='flex flex-col gap-y-14 items-center lg:min-h-screen'>
-                    <BounceInBottom delayVal={0}>
+                    <BounceInBottom delayVal={0.5}>
                          <h1 className='text-xl xs:text-2xl font-bold w-80 xs:w-96 text-center 
                     md:text-3xl md:w-96 lg:text-3xl lg:w-[30rem] text-tertiary text-opacity-90'>
                               Destinasi Wisata Terfavorit Bulan Ini

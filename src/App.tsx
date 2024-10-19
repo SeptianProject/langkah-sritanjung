@@ -6,11 +6,23 @@ import DetailPage from "./components/pages/DetailPage"
 import RecomendationPage from "./components/pages/RecomendationPage"
 import TourPage from "./components/pages/TourPage"
 import LoadingMapLocation from "./components/elements/LoadingMapLocation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import LoadingSplash from "./components/pages/LoadingSplash"
 
 const App = () => {
   const location = useLocation()
   const [isPageLoading, setIsPageLoading] = useState(false)
+  const [isInitialLoading, setIsInitialLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsInitialLoading(false)
+    }, 5000);
+  }, [])
+
+  if (isInitialLoading && location.pathname === '/') {
+    return <LoadingSplash onLoadingComplete={() => setIsInitialLoading(false)} />
+  }
 
   const hideNavbarAndFooter =
     location.pathname.startsWith('/tour-guide/') ||

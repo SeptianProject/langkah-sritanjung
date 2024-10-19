@@ -53,31 +53,32 @@ const BentoGrid = () => {
           navigate(`/tour-guide/${slug}`)
      }
 
-     if (loading) return <p>Loading...</p>
+     if (loading) return <p></p>
 
      return (
           <div className='w-full px-10'>
                <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-rows-2
                lg:grid-cols-3 md:h-[calc(100vh-50px)] transition-all duration-700'>
-                    {destinations.slice(0, 4).map((item, index) => (
-                         <div key={item.id}
-                              className={`relative rounded-xl overflow-hidden h-64 md:h-auto
+                    {destinations.slice(0, 4).map((item, index) => {
+                         return (
+                              <div key={item.id}
+                                   className={`relative rounded-xl overflow-hidden h-64 md:h-auto
                               ${index === 0 ? 'md:col-span-1 md:row-span-2' :
-                                        index === 3 ? 'md:col-span-2 md:row-span-1' : ''}`}>
-                              <img className='absolute inset-0 w-full h-full object-cover'
-                                   src={item.image.url}
-                                   alt={item.name} />
-                              <div className='absolute inset-0 bg-gradient-to-t from-tertiary/90 to-transparent' />
-                              <div className='absolute bottom-5 left-5 right-5'>
-                                   <h2 className='text-xl font-semibold text-white mb-3'>{item.name}</h2>
-                                   <div className='flex flex-row space-x-4'>
-                                        <ButtonLeave text='Lihat Detail' onClick={() => handleClickDetail(item.slug)} />
-                                        <ButtonLeave text='Mulai Tur' onClick={() => handleClickToure(item.slug)} />
+                                             index === 3 ? 'md:col-span-2 md:row-span-1' : ''}`}>
+                                   <img className='absolute inset-0 w-full h-full object-cover'
+                                        src={item.image.url}
+                                        alt={item.name} />
+                                   <div className='absolute inset-0 bg-gradient-to-t from-tertiary/90 to-transparent' />
+                                   <div className='absolute bottom-5 left-5 right-5'>
+                                        <h2 className='text-xl font-semibold text-white mb-3'>{item.name}</h2>
+                                        <div className='flex flex-row space-x-4'>
+                                             <ButtonLeave text='Lihat Detail' onClick={() => handleClickDetail(item.slug)} />
+                                             <ButtonLeave text='Mulai Tur' onClick={() => handleClickToure(item.slug)} />
+                                        </div>
                                    </div>
                               </div>
-                         </div>
-                    ))
-                    }
+                         )
+                    })}
                </div>
           </div>
      )

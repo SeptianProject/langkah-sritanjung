@@ -93,6 +93,7 @@ const ButtonHeader = () => {
                               {destinations.slice(0, isDesktop ? 3 : 2).map((destination, index) => (
                                    <BounceInRight key={index} delayVal={index ? index * 1 : 0.5}>
                                         <ButtonSearch
+                                             key={index}
                                              text={destination.text}
                                              onSearch={handleButtonSearch}
                                              clasName='px-4 py-2' />

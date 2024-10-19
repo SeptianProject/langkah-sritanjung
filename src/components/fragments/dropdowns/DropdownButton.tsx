@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BiChevronDown } from 'react-icons/bi'
+import { BounceInRight } from '../../animation/BounceAnimate'
 
 
 type Category = {
@@ -42,14 +43,16 @@ const DropdownButton = ({ dropdownOpen, categories, handleDropdownOpen, onSelect
                {
                     isDesktop ? (
                          <div className='hidden md:flex justify-center mt-20 gap-x-5 lg:gap-x-10 lg:mt-16'>
-                              {categories.map((category) => (
-                                   <button key={category.slug} onClick={() => handleSelectCategory(category)}
-                                        className={` border border-primary 
+                              {categories.map((category, index) => (
+                                   <BounceInRight key={index} delayVal={index * 0.5}>
+                                        <button key={category.slug} onClick={() => handleSelectCategory(category)}
+                                             className={` border border-primary 
                                         md:py-2 md:w-full lg:py-4 lg:w-40 transition-all duration-500
                                         rounded-bl-xl rounded-tr-xl font-semibold
                                         ${selectedCategory?.slug === category.slug ? 'bg-primary text-white' : 'text-primary bg-white'}`}>
-                                        {category.name}
-                                   </button>
+                                             {category.name}
+                                        </button>
+                                   </BounceInRight>
                               ))}
                          </div>
                     ) : (<div className='flex justify-center'>
