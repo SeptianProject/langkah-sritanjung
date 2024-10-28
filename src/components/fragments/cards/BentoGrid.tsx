@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { baseUrl } from '../../elements/Core';
 import { useNavigate } from 'react-router-dom';
 import ButtonLeave from '../../elements/button/ButtonLeave';
+import Loading from 'react-loading';
 
 interface ListDestination {
      id: number;
@@ -53,7 +54,13 @@ const BentoGrid = () => {
           navigate(`/tour-guide/${slug}`)
      }
 
-     if (loading) return <p></p>
+     if (loading) return (
+          <Loading className="text-center w-full mx-auto"
+               color="#EA8104"
+               height={50}
+               width={50}
+               type="cylon" />
+     )
 
      return (
           <div className='w-full px-10'>

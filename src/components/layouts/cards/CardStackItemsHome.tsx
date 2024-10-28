@@ -1,15 +1,19 @@
+import ButtonSecondary from "../../elements/button/ButtonSecondary"
+
 type CardStackProps = {
      cardStackItems: {
           id: string
+          slug: string
           name: string
           image: {
                url: string
                name: string
           }
      }[]
+     handleDetailClick: (slug: string) => void
 }
 
-const CardStackItemsHome = ({ cardStackItems }: CardStackProps) => {
+const CardStackItemsHome = ({ cardStackItems, handleDetailClick }: CardStackProps) => {
      return (
           <>
                {
@@ -21,9 +25,8 @@ const CardStackItemsHome = ({ cardStackItems }: CardStackProps) => {
                                    </div>
                                    <div className='absolute bottom-0 bg-tertiary bg-opacity-85 w-full flex flex-col gap-y-3 py-5 items-center rounded-t-3xl'>
                                         <h2 className='text-lg font-semibold text-white'>{item.name}</h2>
-                                        <div className='flex gap-x-3 w-full items-center justify-center'>
-                                             <button className='bg-secondary text-white border border-opacity-50 border-white py-1 w-24 rounded-bl-xl rounded-tr-xl text-sm'>Lihat Detail</button>
-                                             <button className='bg-secondary text-white border border-opacity-50 border-white py-1 w-24 text-sm rounded-bl-xl rounded-tr-xl'>Hubungi</button>
+                                        <div className='flex w-full items-center justify-center'>
+                                             <ButtonSecondary text='Lihat Detail' onClick={() => handleDetailClick(item.slug)} />
                                         </div>
                                    </div>
                               </div>

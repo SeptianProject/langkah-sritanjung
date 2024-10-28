@@ -8,7 +8,8 @@ const ButtonSecondary = ({ onClick, text }: ButtonSecondaryProps) => {
      return (
           <button
                onClick={onClick}
-               className='bg-secondary text-white border border-opacity-50 border-white py-1 w-24 rounded-bl-xl rounded-tr-xl text-sm'>
+               className='bg-secondary text-white border border-opacity-50 border-white 
+               py-2 w-28 lg:w-32  rounded-bl-xl rounded-tr-xl text-sm'>
                {text}
           </button>
      )

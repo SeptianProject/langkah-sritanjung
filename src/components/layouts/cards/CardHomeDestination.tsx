@@ -5,16 +5,18 @@ import { BounceInBottom } from '../../animation/BounceAnimate'
 type HomeDestinationProps = {
      cardStackItems: {
           id: string
+          slug: string
           name: string
           image: {
                url: string
                name: string
           }
      }[]
-     onClick: () => void
+     onClick: () => void,
+     handleDetailClick: (slug: string) => void
 }
 
-const CardHomeDestination = ({ cardStackItems, onClick }: HomeDestinationProps) => {
+const CardHomeDestination = ({ cardStackItems, onClick, handleDetailClick }: HomeDestinationProps) => {
      const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth >= 768)
      const [showAll, setShowAll] = useState<boolean>(false)
 
@@ -35,7 +37,7 @@ const CardHomeDestination = ({ cardStackItems, onClick }: HomeDestinationProps) 
 
      return (
           <div className='flex flex-col gap-y-10'>
-               <CardStackHome cardStackItems={displayedItems} />
+               <CardStackHome handleDetailClick={handleDetailClick} cardStackItems={displayedItems} />
                <BounceInBottom delayVal={0}>
                     {isDesktop && cardStackItems.length > 3 && (
                          <button

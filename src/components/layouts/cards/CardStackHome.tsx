@@ -7,15 +7,17 @@ import CardStackItemsHome from './CardStackItemsHome'
 type CardStackProps = {
      cardStackItems: {
           id: string
+          slug: string
           name: string
           image: {
                url: string
                name: string
           }
      }[]
+     handleDetailClick: (slug: string) => void
 }
 
-const CardStackHome = ({ cardStackItems }: CardStackProps) => {
+const CardStackHome = ({ cardStackItems, handleDetailClick }: CardStackProps) => {
      const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth >= 768)
 
      useEffect(() => {
@@ -32,7 +34,7 @@ const CardStackHome = ({ cardStackItems }: CardStackProps) => {
                     isDesktop ? (
                          <div className='gap-4 flex flex-col items-center justify-center w-full h-full 
                          md:grid md:grid-cols-2 md:place-content-center lg:grid-cols-3'>
-                              <CardStackItemsHome cardStackItems={cardStackItems} />
+                              <CardStackItemsHome handleDetailClick={handleDetailClick} cardStackItems={cardStackItems} />
                          </div>
                     ) : (
                          <Slider {...settings}>
@@ -44,9 +46,8 @@ const CardStackHome = ({ cardStackItems }: CardStackProps) => {
                                              </div>
                                              <div className='absolute bottom-0 bg-tertiary bg-opacity-85 w-full flex flex-col gap-y-3 py-5 items-center rounded-t-3xl'>
                                                   <h2 className='text-lg font-semibold text-white'>{item.name}</h2>
-                                                  <div className='flex gap-x-3 w-full items-center justify-center'>
-                                                       <ButtonSecondary text='Lihat Detail' onClick={() => { }} />
-                                                       <ButtonSecondary text='Hubungi' onClick={() => { }} />
+                                                  <div className='flex w-full items-center justify-center'>
+                                                       <ButtonSecondary text='Lihat Detail' onClick={() => handleDetailClick(item.slug)} />
                                                   </div>
                                              </div>
                                         </div>

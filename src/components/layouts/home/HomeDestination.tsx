@@ -8,6 +8,7 @@ import axios from 'axios'
 import { baseUrl } from '../../elements/Core'
 import BentoGrid from '../../fragments/cards/BentoGrid'
 import { BounceInBottom } from '../../animation/BounceAnimate'
+import { useNavigate } from 'react-router-dom'
 
 type Category = {
      id: string
@@ -17,6 +18,7 @@ type Category = {
 
 type DestinationItem = {
      id: string
+     slug: string
      name: string
      image: {
           url: string
@@ -29,6 +31,7 @@ interface Categories {
 }
 
 const HomeDestination = () => {
+     const navigate = useNavigate()
      const [dropdownOpen, setDropdownOpen] = useState<boolean>(false)
      const [loading, setLoading] = useState<boolean>(true)
      const [categories, setCategories] = useState<Categories | null>(null)
@@ -71,12 +74,14 @@ const HomeDestination = () => {
 
                          const fortmattingData: DestinationItem[] = data.map((item: any) => ({
                               id: item.id,
+                              slug: item.attributes.slug,
                               name: item.attributes.name,
                               image: {
                                    url: item.attributes.image.data.attributes.url,
                                    name: item.attributes.image.data.attributes.name
-                              }
+                              },
                          }))
+                         console.log(fortmattingData)
                          setDestinationData(fortmattingData)
                          setLoading(false)
                     } catch (error) {
@@ -87,6 +92,10 @@ const HomeDestination = () => {
                fetchDataCategory()
           }
      }, [selectedSlug])
+
+     const handleDetailClick = (slug: string) => {
+          navigate(`/detail/${slug}`)
+     }
 
 
      return (
@@ -126,6 +135,7 @@ const HomeDestination = () => {
                                    type="cylon" />
                          ) : (
                               <CardHomeDestination
+                                   handleDetailClick={handleDetailClick}
                                    onClick={handleDropdown}
                                    cardStackItems={destinationData} />
                          )
