@@ -50,7 +50,7 @@ const TourPage = () => {
                          <BiArrowBack className="mx-auto h-full size-5 text-white" />
                     </button>
                </div>
-               <div className="h-1/4">
+               <div className="">
                     <ChatFooter
                          onClick={handleOnSubmit}
                          loading={loading}
@@ -59,15 +59,19 @@ const TourPage = () => {
                          setInput={(e) => setInput(e.target.value)}
                     />
                </div>
-               {isModalOpen && (
-                    <div
-                         className="fixed inset-0 flex items-center 
-                         justify-center bg-black bg-opacity-80 z-20">
-                         <ModalResponse
-                              responses={output}
-                              onClose={handleCloseModal} />
-                    </div>
-               )}
+               <div>
+                    {isModalOpen && (
+                         <div className="fixed inset-0 bg-black bg-opacity-80 z-10">
+                              <div
+                                   className="fixed inset-0 flex items-center 
+                         justify-center z-20">
+                                   <ModalResponse
+                                        responses={output}
+                                        onClose={handleCloseModal} />
+                              </div>
+                         </div>
+                    )}
+               </div>
           </div>
      )
 }

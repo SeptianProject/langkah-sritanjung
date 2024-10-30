@@ -4,7 +4,7 @@ import Loading from 'react-loading';
 
 
 export interface GeminiInputProps {
-     input: string | number | readonly string[] | undefined;
+     input: string | string[];
      setInput: ChangeEventHandler<HTMLTextAreaElement>;
      onSubmit: (e: FormEvent) => void;
      onClick: (e: FormEvent) => void;
@@ -28,8 +28,8 @@ const GeminiInput = ({ onSubmit, onClick, input, setInput, loading }: GeminiInpu
           <form onSubmit={onSubmit} className="relative flex items-center justify-center w-full h-full">
                <textarea value={input} onChange={setInput} onKeyDown={handleKeyDown}
                     name="" id="" rows={2} placeholder="Tanyakan sesuatu..."
-                    className="p-4 px-5 pr-14 leading-relaxed w-full rounded-xl 
-                    border-none outline-none transition-all duration-300
+                    className="textarea-input p-4 px-5 pr-14 leading-relaxed 
+                    w-full rounded-xl border-none outline-none transition-all duration-300 
                     focus:ring-2 focus:ring-white"/>
                <button onClick={onClick} type="button" className="absolute right-4">
                     {
