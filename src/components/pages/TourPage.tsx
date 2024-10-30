@@ -52,8 +52,9 @@ const TourPage = () => {
                </div>
                <div className="h-1/4">
                     <ChatFooter
+                         onClick={handleOnSubmit}
                          loading={loading}
-                         handleSubmit={handleOnSubmit}
+                         onSubmit={handleOnSubmit}
                          input={input}
                          setInput={(e) => setInput(e.target.value)}
                     />

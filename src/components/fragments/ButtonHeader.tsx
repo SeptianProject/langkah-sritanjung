@@ -78,8 +78,8 @@ const ButtonHeader = () => {
           })
      }
 
-     const handleSearchSubmit = (value: string) => {
-          const foundDestination = destinations.find(
+     const handleSearchSubmit = async (value: string) => {
+          const foundDestination = await destinations.find(
                (destination) => destination.text.toLowerCase().includes(value.toLowerCase()))
 
           if (foundDestination) {
