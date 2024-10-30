@@ -58,18 +58,19 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
           try {
                const response = await axios.get(`${baseUrl}/destinasi-wisatas/${slug}`)
                const data = response.data.data.attributes
+               console.log(data)
 
                setDestinationDetail({
                     name: data.name,
                     image: data.image?.data?.attributes?.url || assets.bgHome,
                     main: {
-                         title: data.main.title,
-                         timelist: data.main.timelist.map((item: any) => ({
+                         title: data.main?.title,
+                         timelist: data.main?.timelist.map((item: any) => ({
                               title: item.title,
                               desc: item.description
                          })),
-                         actions: data.main.actions.map((item: any) => ({
-                              title: item.title
+                         actions: data.main?.actions.map((item: any) => ({
+                              title: item?.title
                          }))
                     },
                     transportasis: data.transportasis.data.map((item: any) => ({
@@ -135,13 +136,15 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
      };
 
      if (!destinationDetail || loading) {
-          return <div>
-               <Loading className="min-h-screen flex justify-center items-center m-auto"
-                    color="#EA8104"
-                    height={60}
-                    width={60}
-                    type="cylon" />
-          </div>
+          return (
+               <div>
+                    <Loading className="min-h-screen flex justify-center items-center m-auto"
+                         color="#EA8104"
+                         height={60}
+                         width={60}
+                         type="cylon" />
+               </div>
+          )
      }
 
      return (
@@ -174,10 +177,10 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
                               {destinationDetail.main.title}
                          </h1>
                          <div className='flex gap-x-6 h-[32rem] w-[20rem] md:h-[29rem] md:gap-x-7 md:w-[30rem] md:mx-auto lg:mx-0'>
-                              <DotDashCustom itemCount={destinationDetail.main.timelist.length} />
+                              <DotDashCustom itemCount={destinationDetail?.main?.timelist?.length} />
                               <div className='flex flex-col h-full justify-between md:gap-y-[2.5rem] md:justify-start'>
                                    {
-                                        destinationDetail.main.timelist.map((text, index) => (
+                                        destinationDetail.main?.timelist?.map((text, index) => (
                                              <div key={index} className='flex flex-col'>
                                                   <h3 className='text-base font-semibold text-tertiary text-opacity-90'>{text.title}</h3>
                                                   <p className='text-sm font-normal md:font-medium text-tertiary text-opacity-90'>{text.desc}</p>
@@ -202,7 +205,7 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
                     <ActionCard
                          actionItems={{
                               item: {
-                                   value: destinationDetail.main.actions.map((action) => ({
+                                   value: destinationDetail.main?.actions?.map((action) => ({
                                         title: action.title
                                    }))
                               }

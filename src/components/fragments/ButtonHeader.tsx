@@ -6,6 +6,7 @@ import axios from 'axios'
 import { baseUrl } from '../elements/Core';
 import { useNavigate } from 'react-router-dom';
 import { BounceInRight } from '../animation/BounceAnimate';
+import Swal from 'sweetalert2';
 
 interface Destination {
      path: string;
@@ -59,15 +60,33 @@ const ButtonHeader = () => {
           setSearchTerm(text)
      }
 
-     const handleOnClick = () => {
+     const showErrorAlert = () => {
+          Swal.fire({
+               icon: 'error',
+               title: 'Destinasi Tidak Ditemukan',
+               text: 'Maaf, destinasi yang Anda cari belum tersedia',
+               confirmButtonText: 'Tutup',
+               confirmButtonColor: '#d33',
+               showClass: {
+                    popup: 'animate__animated animate__bounceIn',
+                    backdrop: 'animate__animated animate__fadeIn'
+               },
+               hideClass: {
+                    popup: 'animate__animated animate__bounceOut',
+                    backdrop: 'animate__animated animate__fadeOut'
+               }
+          })
+     }
+
+     const handleSearchSubmit = (value: string) => {
           const foundDestination = destinations.find(
-               (destinations) => destinations.text.toLowerCase().includes(searchTerm.toLowerCase()
-               ))
+               (destination) => destination.text.toLowerCase().includes(value.toLowerCase()))
+
           if (foundDestination) {
                navigate(`/detail/${foundDestination.path}`)
           } else {
                navigate('/')
-               alert('Destinasi tidak tersedia')
+               showErrorAlert()
           }
      }
 
@@ -77,7 +96,7 @@ const ButtonHeader = () => {
                     placeholder='Cari destinasi...'
                     value={searchTerm}
                     onChange={handleSearch}
-                    onClick={handleOnClick} />
+                    onSearch={handleSearchSubmit} />
                <div className='mt-4 flex gap-x-4'>
                     {loading ? (
                          <>

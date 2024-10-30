@@ -30,7 +30,7 @@ const ActionCard = ({ actionItems }: ActionCardProps) => {
      return (
           <>{isDesktop ?
                (<div className="grid grid-cols-3 w-full gap-3">
-                    {actionItems.item.value.map((action, index) => (
+                    {actionItems?.item?.value?.map((action, index) => (
                          <div key={index} className='py-7 rounded-xl
                                    border border-primary flex items-center justify-center'>
                               <h1 className="text-sm text-center font-medium">
@@ -40,7 +40,7 @@ const ActionCard = ({ actionItems }: ActionCardProps) => {
                     ))}
                </div>
                ) : (<Slider {...settings} >
-                    {actionItems.item.value.map((action, index) => (
+                    {actionItems?.item?.value?.map((action, index) => (
                          <div key={index} className="w-60 py-7 rounded-xl
                                    border border-primary flex items-center
                                    justify-center gap-x-10">

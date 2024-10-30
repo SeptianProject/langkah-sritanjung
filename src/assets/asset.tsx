@@ -145,16 +145,16 @@ export const footerAssets = {
     menu: {
         title: 'Menu',
         value: [
-            { text: 'Beranda', link: '/' },
-            { text: 'Destinasi', link: '/destinasi' },
-            { text: 'Tentang Kami', link: '/tentang-kami' }
+            { text: 'Beranda', link: 'beranda' },
+            { text: 'Destinasi', link: 'destinasi' },
+            { text: 'Tentang Kami', link: 'tentang-kami' }
         ]
     },
     more: {
         title: 'Pelajari Selengkapnya',
         value: [
-            { text: 'Pernyataaan Resmi', link: '/' },
-            { text: 'Kebijakan Privasi', link: '/' }
+            { text: 'Pernyataaan Resmi', link: '/resmi' },
+            { text: 'Kebijakan Privasi', link: '/kebijakan' }
         ]
     },
     contact: {

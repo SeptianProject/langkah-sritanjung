@@ -26,6 +26,7 @@
     "react-slick": "^0.30.2",
     "react-type-animation": "^3.2.0",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.14.4",
     "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {

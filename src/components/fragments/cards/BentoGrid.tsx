@@ -54,7 +54,7 @@ const BentoGrid = () => {
           navigate(`/tour-guide/${slug}`)
      }
 
-     if (loading) return (
+     if (!destinations || loading) return (
           <Loading className="text-center w-full mx-auto"
                color="#EA8104"
                height={50}

@@ -55,8 +55,8 @@ const NavItem = ({ className, select, unSelect,
 
                     const commonProps = {
                          className: `font-poppins font-light text-sm tracking-wide 
-                              transition-all duration-500 md:text-base md:font-normal
-                              cursor-pointer text-opacity-90 px-3 ${className} 
+                              transition-all duration-500 md:text-base md:font-normal transform
+                              cursor-pointer text-opacity-80 px-3 ${className} hover:scale-105
                               ${isDesktop ? 'text-white' : 'text-secondary hover:bg-secondary'}
                               ${location.pathname === item.link ? select : unSelect}
                               ${isDisabled ? '' : 'hover:text-white'}`,
