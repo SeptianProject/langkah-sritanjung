@@ -146,21 +146,21 @@ const MapLayout = ({ setLoading }: { setLoading: (loading: boolean) => void }) =
 
      return (
           <div className="h-full relative">
-               <div className="absolute top-10 right-10 bg-white 
-               shadow-lg z-20 rounded-xl">
-                    <h2 className="text-xl font-medium text-center pt-5">
+               <div className="absolute top-2 right-2 lg:top-10 lg:right-10 bg-white 
+               shadow-lg z-10 rounded-xl">
+                    <h2 className="text-base lg:text-xl font-medium text-center pt-5">
                          Informasi Rute
                     </h2>
-                    <div className="w-80 p-5">
+                    <div className="w-44 lg:w-80 p-5">
                          {routes.map((route, index) => (
                               <div key={index} onClick={() => setSelectedRouteIndex(index)}
                                    className={`cursor-pointer p-4 rounded-lg 
                                    ${selectedRouteIndex === index
                                              ? 'bg-primary text-white'
                                              : 'bg-gray-100'}`}>
-                                   <p className="font-semibold">Rute {index + 1}</p>
-                                   <p>Jarak: {route.distance}</p>
-                                   <p>Waktu: {route.duration}</p>
+                                   <p className="font-semibold text-sm lg:text-base">Rute {index + 1}</p>
+                                   <p className="text-xs lg:text-base">Jarak: {route.distance}</p>
+                                   <p className="text-xs lg:text-base">Waktu: {route.duration}</p>
                               </div>
                          ))}
                     </div>

@@ -6,13 +6,20 @@ import { BiArrowBack } from "react-icons/bi";
 import ModalResponse from "../layouts/tour/ModalResponse";
 import { useNavigate, useParams } from "react-router-dom";
 import { geminiApiKey } from "../elements/Core";
+import useSpeechRecognition from "../layouts/tour/UseSpeechRecognition";
 
 const geminiAi = new GoogleGenerativeAI(geminiApiKey);
 
 const TourPage = () => {
+     const {
+          isListening,
+          startListening,
+          stopListening,
+          text: voiceInput,
+     } = useSpeechRecognition()
      const { destination } = useParams<{ destination: string }>()
      const navigate = useNavigate()
-     const [input, setInput] = useState<string>('');
+     const [textInput, setTextInput] = useState<string>('');
      const [output, setOutput] = useState<string[]>([]);
      const [loading, setLoading] = useState<boolean>(false);
      const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -24,11 +31,20 @@ const TourPage = () => {
                const model: GenerativeModel = geminiAi.getGenerativeModel({
                     model: "gemini-1.5-pro",
                })
-               const result: GenerateContentResult = await model.generateContent(input)
+
+               const inputContent = isListening ? voiceInput : textInput
+
+               if (!inputContent.trim()) {
+                    console.log('Input kosong')
+                    return
+               }
+
+               const result: GenerateContentResult = await model.generateContent(inputContent)
                const response: string = result.response.text().replace(/\*|#/g, "");
 
                setOutput([response])
                setIsModalOpen(true)
+
           } catch (error) {
                console.error(error)
           } finally {
@@ -77,11 +93,13 @@ const TourPage = () => {
                </div>
                <div className="">
                     <ChatFooter
+                         onSpeak={startListening}
+                         onStop={stopListening}
                          onClick={handleOnSubmit}
                          loading={loading}
                          onSubmit={handleOnSubmit}
-                         input={input}
-                         setInput={(e) => setInput(e.target.value)}
+                         input={textInput}
+                         setInput={(e) => setTextInput(e.target.value)}
                     />
                </div>
                <div>

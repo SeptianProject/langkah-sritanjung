@@ -110,7 +110,7 @@ const HomeDestination = () => {
                     <BentoGrid />
                </div>
                {/* Cardtext blue Dropdown */}
-               <div className='lg:min-h-full lg:w-full px-10 lg:mt-10'>
+               <div id='dropdown-card' className='lg:min-h-full lg:w-full px-10 lg:mt-10'>
                     <div className='relative bg-blueCard bg-opacity-20 
                     w-full h-60 lg:h-80
                     rounded-2xl py-5 px-2 sm:px-5'>

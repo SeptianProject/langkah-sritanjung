@@ -1,6 +1,7 @@
 import Input from './Input'
 import { inputAssets } from '../../../assets/asset'
 import { ChangeEvent, FormEvent, } from 'react';
+// import { Link } from 'react-scroll';
 
 type SearchInputProps = {
      placeholder: string;
@@ -27,10 +28,17 @@ const SearchInput = ({ placeholder, onSearch, onChange, value }: SearchInputProp
                     value={value}
                     className='py-3 px-4' />
                <button onClick={handleClick} type='submit'
-                    className='absolute right-3 top-3 text-white bg-secondary 
-                    h-6 px-1 lg:px-3 lg:right-6 text-xs font-light tracking-wide'>
+                    className='absolute right-3 top-3 flex items-center justify-center 
+                    text-white bg-secondary h-6 px-1 lg:px-3 lg:right-6
+                    text-xs font-light tracking-wide'>
                     Jelajahi
                </button>
+               {/* <Link to='dropdown-card' onClick={handleClick} type='submit'
+                    className='absolute right-3 top-3 flex items-center justify-center 
+                    text-white bg-secondary h-6 px-1 lg:px-3 lg:right-6
+                    text-xs font-light tracking-wide'>
+                    Jelajahi
+               </Link> */}
           </form>
      )
 }

@@ -58,7 +58,6 @@ const DetailPage = ({ setIsLoading }: LoadingProps) => {
           try {
                const response = await axios.get(`${baseUrl}/destinasi-wisatas/${slug}`)
                const data = response.data.data.attributes
-               console.log(data)
 
                setDestinationDetail({
                     name: data.name,

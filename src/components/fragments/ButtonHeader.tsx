@@ -79,14 +79,24 @@ const ButtonHeader = () => {
      }
 
      const handleSearchSubmit = async (value: string) => {
-          const foundDestination = await destinations.find(
-               (destination) => destination.text.toLowerCase().includes(value.toLowerCase()))
+          setLoading(true)
+          try {
+               const destination = destinations.find(
+                    (destination) => destination.text.toLowerCase().includes(value.toLowerCase()))
 
-          if (foundDestination) {
-               navigate(`/detail/${foundDestination.path}`)
-          } else {
-               navigate('/')
+               if (destination) {
+                    navigate(`/detail/${destination.path}`)
+               } else {
+                    return {
+                         action: 'scroll',
+                         target: 'dropdown-card'
+                    }
+               }
+          } catch (error) {
+               console.error(error)
                showErrorAlert()
+          } finally {
+               setLoading(false)
           }
      }
 
