@@ -70,18 +70,17 @@ const HomeDestination = () => {
                     setLoading(true)
                     try {
                          const response = await axios.get(`${baseUrl}/kategori-wisatas/${selectedSlug}`)
-                         const data = response.data.data.attributes.destinasi_wisatas.data
+                         const data = response.data.data.attributes?.destinasi_wisatas.data
 
                          const fortmattingData: DestinationItem[] = data.map((item: any) => ({
                               id: item.id,
-                              slug: item.attributes.slug,
-                              name: item.attributes.name,
+                              slug: item.attributes?.slug,
+                              name: item.attributes?.name,
                               image: {
-                                   url: item.attributes.image.data.attributes.url,
-                                   name: item.attributes.image.data.attributes.name
+                                   url: item.attributes?.image?.data?.attributes?.url,
+                                   name: item.attributes?.image?.data?.attributes?.name
                               },
                          }))
-                         console.log(fortmattingData)
                          setDestinationData(fortmattingData)
                          setLoading(false)
                     } catch (error) {

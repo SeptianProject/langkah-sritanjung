@@ -32,8 +32,8 @@ const BentoGrid = () => {
                          name: item.name,
                          slug: item.slug,
                          image: {
-                              url: item.image.url,
-                              name: item.image.name
+                              url: item.image?.url,
+                              name: item.image?.name
                          }
                     }))
                     setDestinations(formattedData)
