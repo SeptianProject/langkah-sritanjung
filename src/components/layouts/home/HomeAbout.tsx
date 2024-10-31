@@ -5,9 +5,8 @@ import { BounceInLeft, BounceInRight } from '../../animation/BounceAnimate'
 
 const HomeAbout = () => {
      return (
-          <section id='tentang-kami' className='flex flex-col items-center px-10
-          md:mt-5 lg:mt-0 lg:flex-row lg:justify-between
-          lg:max-w-full lg:min-h-screen'>
+          <section id='tentang-kami' className='flex flex-col items-center px-10 
+          lg:flex-row lg:justify-between lg:max-w-full lg:min-h-screen'>
                <BounceInRight delayVal={0.5}>
                     <StackImageDestination />
                </BounceInRight>

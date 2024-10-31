@@ -125,7 +125,8 @@ const HomeDestination = () => {
                     </div>
                </div>
                {/* Card */}
-               <div className={`lg:min-h-screen px-10 lg:mt-20 ${dropdownOpen ? 'mt-60' : 'mt-0'} transition-all duration-300`}>
+               <div className={`px-10 lg:mt-5
+                    ${dropdownOpen ? 'mt-60' : 'mt-0'} transition-all duration-300`}>
                     {
                          loading ? (
                               <Loading className="text-center w-full mx-auto"

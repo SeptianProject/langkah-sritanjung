@@ -47,8 +47,8 @@ const DropdownButton = ({ dropdownOpen, categories, handleDropdownOpen, onSelect
                                    <BounceInRight key={index} delayVal={index * 0.5}>
                                         <button key={category.slug} onClick={() => handleSelectCategory(category)}
                                              className={` border border-primary 
-                                        md:py-2 md:w-full lg:py-4 lg:w-40 transition-all duration-500
-                                        rounded-bl-xl rounded-tr-xl font-semibold
+                                        md:py-2 md:w-28 lg:py-4 lg:w-40 transition-all duration-500
+                                        rounded-bl-xl rounded-tr-xl font-semibold hover:bg-primary hover:text-white
                                         ${selectedCategory?.slug === category.slug ? 'bg-primary text-white' : 'text-primary bg-white'}`}>
                                              {category.name}
                                         </button>
@@ -56,7 +56,7 @@ const DropdownButton = ({ dropdownOpen, categories, handleDropdownOpen, onSelect
                               ))}
                          </div>
                     ) : (<div className='flex justify-center'>
-                         <div className='md:hidden flex flex-col justify-center w-40 mx-auto mt-10 xs:mt-16 sm:mt-[7rem]'>
+                         <div className='md:hidden flex flex-col justify-center w-40 mx-auto mt-10 sm:mt-[7rem]'>
                               <button onClick={handleDropdownOpen}
                                    className='text-primary bg-white border border-primary 
                                    py-3 px-3 w-full rounded-bl-xl rounded-tr-xl flex 
@@ -68,7 +68,8 @@ const DropdownButton = ({ dropdownOpen, categories, handleDropdownOpen, onSelect
                               </button>
                          </div>
                          {dropdownOpen && (
-                              <div className='absolute mt-[6.2rem] xs:mt-[7.7rem] md:mt-0 flex flex-col gap-y-[5px] w-40 '>
+                              <div className='absolute mt-[6.2rem]
+                              md:mt-0 flex flex-col gap-y-[5px] w-40'>
                                    {categories.map((category) => (
                                         <button
                                              key={category.slug} onClick={() => handleSelectCategory(category)}

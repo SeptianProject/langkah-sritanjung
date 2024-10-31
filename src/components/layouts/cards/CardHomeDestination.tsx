@@ -42,7 +42,8 @@ const CardHomeDestination = ({ cardStackItems, onClick, handleDetailClick }: Hom
                     {isDesktop && cardStackItems.length > 3 && (
                          <button
                               onClick={handleShowAll}
-                              className='text-white bg-primary w-32 mx-auto flex justify-center py-2 rounded-lg '>
+                              className='text-white bg-primary w-32 mx-auto 
+                              flex justify-center py-2 rounded-lg '>
                               {showAll ? 'Sembunyikan' : 'Lihat Semua'}
                          </button>
                     )}

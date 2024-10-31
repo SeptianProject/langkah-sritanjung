@@ -24,12 +24,18 @@ const FooterItem = ({ footerItems }: FooterItemsProps) => {
                     ? 'flex-row items-center justify-start gap-x-3 md:gap-x-4'
                     : 'flex-col gap-y-1 md:gap-y-2'}`}>
                     {footerItems.item.value.map((item, index) => (
-                         <Link key={index} to={item.link} smooth={true} offset={-50} duration={500}
-                              className={`text-sm text-tertiary font-normal md:font-medium 
-                         lg:text-base w-fit text-opacity-80 hover:text-opacity-100
-                         transition duration-300 cursor-pointer
-                         ${hasIcon ? 'inline-flex items-center justify-center' : 'w-fit'}
-                         ${item.icon ? 'hover:scale-105' : 'hover:translate-x-1'}`}>
+                         <Link key={index} className={`text-sm text-tertiary font-normal 
+                              md:font-medium lg:text-base w-fit text-opacity-80 cursor-pointer 
+                              hover:text-opacity-100 transition duration-300 ${hasIcon
+                                   ? 'inline-flex items-center justify-center'
+                                   : 'w-fit'}  ${item.icon
+                                        ? 'hover:scale-105'
+                                        : 'hover:translate-x-1'}`}
+                              to={item.link} smooth={true} offset={-50}
+                              duration={
+                                   item.link === 'tentang-kami' ? 500 :
+                                        item.link === 'destinasi' ? 1000 :
+                                             item.link === 'beranda' ? 1500 : 500}>
                               {item.icon ? (
                                    <img className='size-5 md:size-12 hover:scale-105'
                                         alt={`icon-${index}`} src={item.icon} />

@@ -22,7 +22,7 @@ const ModalResponse = ({ responses, onClose }: ModalResponseProps) => {
                     currentText += responses.join(" ")[charIndex];
                     setDisplayedText(currentText);
                     charIndex++;
-                    timeoutId = setTimeout(addCharacter, 50); // Atur kecepatan per karakter
+                    timeoutId = setTimeout(addCharacter, 50);
                }
           };
 

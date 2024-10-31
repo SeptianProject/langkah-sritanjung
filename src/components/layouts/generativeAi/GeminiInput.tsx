@@ -2,7 +2,6 @@ import { ChangeEventHandler, FormEvent, KeyboardEvent } from "react";
 import { BsSendFill } from "react-icons/bs";
 import Loading from 'react-loading';
 
-
 export interface GeminiInputProps {
      input: string | string[];
      setInput: ChangeEventHandler<HTMLTextAreaElement>;

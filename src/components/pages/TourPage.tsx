@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import ChatFooter from "../layouts/tour/ChatFooter"
 import { GenerateContentResult, GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
 import MapLayout from "../layouts/tour/maps/MapLayout";
@@ -35,6 +35,31 @@ const TourPage = () => {
                setLoading(false);
           }
      }
+
+     const responseSpeak = (output: string) => {
+          setLoading(true)
+          try {
+               if ('speechSynthesis' in window) {
+                    const speech = new SpeechSynthesisUtterance(output)
+                    speech.lang = 'id-ID'
+                    speech.rate = 1.1
+                    speech.pitch = 1.3
+
+                    window.speechSynthesis.speak(speech)
+               }
+          } catch (error) {
+               console.error(error)
+          } finally {
+               setLoading(false)
+          }
+     }
+
+     useEffect(() => {
+          if (output.length > 0) {
+               const lastOutput = output[output.length - 1]
+               responseSpeak(lastOutput)
+          }
+     }, [output])
 
      const handleCloseModal = () => {
           setIsModalOpen(false)
