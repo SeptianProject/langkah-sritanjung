@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TextDetailRekomen from "../elements/text/TextDetailRekomen"
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -33,6 +33,7 @@ const DetailRekom = ({ setIsLoading }: LoadingProps) => {
      const { slug, type, name } = useParams<ParamsType>()
      const [recommendation, setRecommendation] = useState<RecommendationDetail | null>(null);
      const [loading, setLoading] = useState(true)
+     const navigate = useNavigate()
 
      useEffect(() => {
           const fetchDetailData = async () => {
@@ -107,11 +108,17 @@ const DetailRekom = ({ setIsLoading }: LoadingProps) => {
                     <TextDetailRekomen title="Alamat :" description={recommendation.address} />
                     <TextDetailRekomen title="No Telp :" description={recommendation.telp} />
                     <TextDetailRekomen title="Harga :" description={recommendation.price} />
-                    <div className="">
+                    <div className="flex gap-x-2 items-center">
                          <button
                               onClick={() => window.open(recommendation.url, '_blank')}
                               className="text-white bg-primary rounded-lg text-sm font-medium w-36 h-10">
                               Cek Ketersediaan
+                         </button>
+                         <button
+                              onClick={() => navigate(-1)}
+                              className="text-white bg-tertiary bg-opacity-80
+                              rounded-lg text-sm font-medium w-36 h-10">
+                              Kembali
                          </button>
                     </div>
                </div>

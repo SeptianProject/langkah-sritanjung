@@ -29,12 +29,13 @@ const CardStackHome = ({ cardStackItems, handleDetailClick }: CardStackProps) =>
      }, [])
 
      return (
-          <>
+          <div>
                {
                     isDesktop ? (
-                         <div className='gap-4 flex flex-col items-center justify-center w-full h-full 
-                         md:grid md:grid-cols-2 md:place-content-center lg:grid-cols-3'>
-                              <CardStackItemsHome handleDetailClick={handleDetailClick} cardStackItems={cardStackItems} />
+                         <div className='gap-4 md:grid md:grid-cols-2 lg:grid-cols-3'>
+                              <CardStackItemsHome
+                                   handleDetailClick={handleDetailClick}
+                                   cardStackItems={cardStackItems} />
                          </div>
                     ) : (
                          <Slider {...settings}>
@@ -56,7 +57,7 @@ const CardStackHome = ({ cardStackItems, handleDetailClick }: CardStackProps) =>
                          </Slider>
                     )
                }
-          </>
+          </div>
      )
 }
 

@@ -4,9 +4,9 @@ import ButtonSearch from '../elements/button/ButtonSearch'
 import { ChangeEvent, useEffect, useState } from 'react'
 import axios from 'axios'
 import { baseUrl } from '../elements/Core';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { BounceInRight } from '../animation/BounceAnimate';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 interface Destination {
      path: string;
@@ -18,7 +18,7 @@ const ButtonHeader = () => {
      const [isDesktop, setIsDesktop] = useState<boolean>(false)
      const [searchTerm, setSearchTerm] = useState<string>('')
      const [loading, setLoading] = useState<boolean>(true)
-     const navigate = useNavigate()
+     // const navigate = useNavigate()
 
      const handleResize = () => {
           setIsDesktop(window.innerWidth >= 1024)
@@ -60,53 +60,55 @@ const ButtonHeader = () => {
           setSearchTerm(text)
      }
 
-     const showErrorAlert = () => {
-          Swal.fire({
-               icon: 'error',
-               title: 'Destinasi Tidak Ditemukan',
-               text: 'Maaf, destinasi yang Anda cari belum tersedia',
-               confirmButtonText: 'Tutup',
-               confirmButtonColor: '#d33',
-               showClass: {
-                    popup: 'animate__animated animate__bounceIn',
-                    backdrop: 'animate__animated animate__fadeIn'
-               },
-               hideClass: {
-                    popup: 'animate__animated animate__bounceOut',
-                    backdrop: 'animate__animated animate__fadeOut'
-               }
-          })
-     }
+     // const showErrorAlert = () => {
+     //      Swal.fire({
+     //           icon: 'error',
+     //           title: 'Destinasi Tidak Ditemukan',
+     //           text: 'Maaf, destinasi yang Anda cari belum tersedia',
+     //           confirmButtonText: 'Tutup',
+     //           confirmButtonColor: '#d33',
+     //           showClass: {
+     //                popup: 'animate__animated animate__bounceIn',
+     //                backdrop: 'animate__animated animate__fadeIn'
+     //           },
+     //           hideClass: {
+     //                popup: 'animate__animated animate__bounceOut',
+     //                backdrop: 'animate__animated animate__fadeOut'
+     //           }
+     //      })
+     // }
 
-     const handleSearchSubmit = async (value: string) => {
-          setLoading(true)
-          try {
-               const destination = destinations.find(
-                    (destination) => destination.text.toLowerCase().includes(value.toLowerCase()))
+     // const handleSearchSubmit = async (value: string) => {
+     //      setLoading(true)
+     //      try {
+     //           const destination = destinations.find(
+     //                (destination) => destination.text.toLowerCase().includes(value.toLowerCase()))
 
-               if (destination) {
-                    navigate(`/detail/${destination.path}`)
-               } else {
-                    return {
-                         action: 'scroll',
-                         target: 'dropdown-card'
-                    }
-               }
-          } catch (error) {
-               console.error(error)
-               showErrorAlert()
-          } finally {
-               setLoading(false)
-          }
-     }
+     //           if (destination) {
+     //                navigate(`/detail/${destination.path}`)
+     //           } else {
+     //                return {
+     //                     action: 'scroll',
+     //                     target: 'dropdown-card'
+     //                }
+     //           }
+     //      } catch (error) {
+     //           console.error(error)
+     //           showErrorAlert()
+     //      } finally {
+     //           setLoading(false)
+     //      }
+     // }
 
      return (
           <div>
                <SearchInput
-                    placeholder='Cari destinasi...'
+                    placeholder="Cari destinasi..."
                     value={searchTerm}
                     onChange={handleSearch}
-                    onSearch={handleSearchSubmit} />
+
+                    destinations={destinations}
+               />
                <div className='mt-4 flex gap-x-4'>
                     {loading ? (
                          <>

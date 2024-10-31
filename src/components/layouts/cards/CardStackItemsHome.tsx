@@ -19,7 +19,9 @@ const CardStackItemsHome = ({ cardStackItems, handleDetailClick }: CardStackProp
                {
                     cardStackItems.map((item) => (
                          <div key={item.id} >
-                              <div className='relative bg-cover bg-center  min-h-96 md:min-h-[26rem] lg:min-h-[28rem] xl:min-h-[30rem]' style={{ backgroundImage: `url(${item.image.url})` }}>
+                              <div className='relative bg-cover bg-center  
+                              min-h-96 md:min-h-[26rem] lg:min-h-[28rem] xl:min-h-[30rem]'
+                                   style={{ backgroundImage: `url(${item.image.url})` }}>
                                    <div className='absolute top-0 left-0 bg-primary py-2 px-3 rounded-br-2xl'>
                                         <h4 className='text-white text-sm'>{item.name}</h4>
                                    </div>
