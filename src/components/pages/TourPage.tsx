@@ -13,8 +13,6 @@ const geminiAi = new GoogleGenerativeAI(geminiApiKey);
 const TourPage = () => {
      const {
           isListening,
-          startListening,
-          stopListening,
           text: voiceInput,
      } = useSpeechRecognition()
      const { destination } = useParams<{ destination: string }>()
@@ -93,8 +91,8 @@ const TourPage = () => {
                </div>
                <div className="">
                     <ChatFooter
-                         onSpeak={startListening}
-                         onStop={stopListening}
+                         // onSpeak={startListening}
+                         // onStop={stopListening}
                          onClick={handleOnSubmit}
                          loading={loading}
                          onSubmit={handleOnSubmit}

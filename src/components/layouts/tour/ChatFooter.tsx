@@ -2,7 +2,7 @@ import GeminiInput, { GeminiInputProps } from '../generativeAi/GeminiInput'
 import { assets } from '../../../assets/asset'
 
 
-const ChatFooter = ({ onSubmit, input, onClick, setInput, loading, onSpeak, onStop, isListening }: GeminiInputProps) => {
+const ChatFooter = ({ onSubmit, input, onClick, setInput, loading }: GeminiInputProps) => {
      return (
           <div className="bg-secondary rounded-t-3xl h-32 w-full 
           flex gap-x-3 md:gap-x-5 px-5 md:px-10 items-center justify-center">
@@ -13,9 +13,9 @@ const ChatFooter = ({ onSubmit, input, onClick, setInput, loading, onSpeak, onSt
                </div>
                <div className="w-full h-full">
                     <GeminiInput
-                         onSpeak={onSpeak}
-                         isListening={isListening}
-                         onStop={onStop}
+                         // onSpeak={onSpeak}
+                         // isListening={isListening}
+                         // onStop={onStop}
                          loading={loading}
                          onSubmit={onSubmit}
                          onClick={onClick}

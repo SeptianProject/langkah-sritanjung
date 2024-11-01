@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeEventHandler, FormEvent, KeyboardEvent } from "react";
-import { BiMicrophoneOff, BiSolidMicrophone } from "react-icons/bi";
+// import { BiMicrophoneOff, BiSolidMicrophone } from "react-icons/bi";
 import { BsSendFill } from "react-icons/bs";
 import Loading from 'react-loading';
-import useSpeechRecognition from "../tour/UseSpeechRecognition";
+// import useSpeechRecognition from "../tour/UseSpeechRecognition";
 
 export interface GeminiInputProps {
      input: string | string[];
      setInput: ChangeEventHandler<HTMLTextAreaElement>;
      onSubmit: (e: FormEvent) => void;
      onClick: (e: FormEvent) => void;
-     onSpeak: () => void;
-     onStop: () => void;
-     isListening?: boolean;
+     // onSpeak: () => void;
+     // onStop: () => void;
+     // isListening?: boolean;
      loading?: boolean;
 }
 
-const GeminiInput = ({ onSubmit, onClick, input, setInput, loading, onSpeak, onStop, isListening }: GeminiInputProps) => {
-     const {
-          hasRecognitionSupport,
-     } = useSpeechRecognition();
+const GeminiInput = ({ onSubmit, onClick, input, setInput, loading }: GeminiInputProps) => {
+     // const {
+     //      hasRecognitionSupport,
+     // } = useSpeechRecognition();
      const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
           if (e.key === 'Enter' && !e.shiftKey) {
                e.preventDefault();
@@ -31,14 +31,14 @@ const GeminiInput = ({ onSubmit, onClick, input, setInput, loading, onSpeak, onS
           }
      };
 
-     const handleMicClick = (e: React.MouseEvent) => {
-          e.preventDefault();
-          if (isListening) {
-               onStop();
-          } else {
-               onSpeak();
-          }
-     };
+     // const handleMicClick = (e: React.MouseEvent) => {
+     //      e.preventDefault();
+     //      if (isListening) {
+     //           onStop();
+     //      } else {
+     //           onSpeak();
+     //      }
+     // };
 
      const handleSendClick = (e: React.MouseEvent) => {
           e.preventDefault();
@@ -55,7 +55,7 @@ const GeminiInput = ({ onSubmit, onClick, input, setInput, loading, onSpeak, onS
                     className="textarea-input p-4 px-5 pr-24 lg:pr-20 leading-relaxed 
                     w-full rounded-xl border-none outline-none transition-all duration-300 
                     focus:ring-2 focus:ring-white"/>
-               {hasRecognitionSupport &&
+               {/* {hasRecognitionSupport &&
                     (
                          <button onClick={handleMicClick} className="absolute right-14">
                               {isListening
@@ -64,7 +64,7 @@ const GeminiInput = ({ onSubmit, onClick, input, setInput, loading, onSpeak, onS
                               }
                          </button>
                     )
-               }
+               } */}
                <button onClick={handleSendClick} type="button" className="absolute right-4">
                     {
                          loading ?

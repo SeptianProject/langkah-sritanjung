@@ -49,7 +49,7 @@ const ModalResponse = ({ responses, onClose }: ModalResponseProps) => {
                          <img src={assets.chatBot} className="size-14" alt="Ichibot" />
                     </div>
                     <div
-                         className="modal-content max-h-40 md:max-h-60 overflow-y-scroll text-center 
+                         className="modal-content max-h-40 md:max-h-60 overflow-y-auto text-center 
                     mt-5 py-2 px-4 font-normal text-sm md:text-base lg:text-lg text-tertiary
                     text-opacity-90 transition-all duration-500"
                          ref={modalContentRef}
