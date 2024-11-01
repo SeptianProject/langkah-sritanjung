@@ -11,9 +11,10 @@ type CardStackProps = {
           }
      }[]
      handleDetailClick: (slug: string) => void
+     handleClickToure: (slug: string) => void
 }
 
-const CardStackItemsHome = ({ cardStackItems, handleDetailClick }: CardStackProps) => {
+const CardStackItemsHome = ({ cardStackItems, handleDetailClick, handleClickToure }: CardStackProps) => {
      return (
           <>
                {
@@ -27,8 +28,9 @@ const CardStackItemsHome = ({ cardStackItems, handleDetailClick }: CardStackProp
                                    </div>
                                    <div className='absolute bottom-0 bg-tertiary bg-opacity-85 w-full flex flex-col gap-y-3 py-5 items-center rounded-t-3xl'>
                                         <h2 className='text-lg font-semibold text-white'>{item.name}</h2>
-                                        <div className='flex w-full items-center justify-center'>
+                                        <div className='flex w-full items-center justify-center gap-5'>
                                              <ButtonSecondary text='Lihat Detail' onClick={() => handleDetailClick(item.slug)} />
+                                             <ButtonSecondary text='Mulai Tur' onClick={() => handleClickToure(item.slug)} />
                                         </div>
                                    </div>
                               </div>

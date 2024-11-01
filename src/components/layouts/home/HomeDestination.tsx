@@ -96,6 +96,12 @@ const HomeDestination = () => {
           navigate(`/detail/${slug}`)
      }
 
+     
+     const handleClickToure = (slug: string) => {
+          navigate(`/tour-guide/${slug}`)
+     }
+
+
 
      return (
           <div id='destinasi' className='flex flex-col gap-y-20'>
@@ -136,6 +142,7 @@ const HomeDestination = () => {
                          ) : (
                               <CardHomeDestination
                                    handleDetailClick={handleDetailClick}
+                                   handleClickToure={handleClickToure}
                                    onClick={handleDropdown}
                                    cardStackItems={destinationData} />
                          )
