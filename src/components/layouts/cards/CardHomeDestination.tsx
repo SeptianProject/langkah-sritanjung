@@ -13,10 +13,11 @@ type HomeDestinationProps = {
           }
      }[]
      onClick: () => void,
-     handleDetailClick: (slug: string) => void
+     handleDetailClick: (slug: string) => void,
+     handleClickToure: (slug: string) => void
 }
 
-const CardHomeDestination = ({ cardStackItems, onClick, handleDetailClick }: HomeDestinationProps) => {
+const CardHomeDestination = ({ cardStackItems, onClick, handleDetailClick, handleClickToure }: HomeDestinationProps) => {
      const [isDesktop, setIsDesktop] = useState<boolean>(window.innerWidth >= 768)
      const [showAll, setShowAll] = useState<boolean>(false)
 
@@ -37,7 +38,7 @@ const CardHomeDestination = ({ cardStackItems, onClick, handleDetailClick }: Hom
 
      return (
           <div className='flex flex-col gap-y-10'>
-               <CardStackHome handleDetailClick={handleDetailClick} cardStackItems={displayedItems} />
+               <CardStackHome handleDetailClick={handleDetailClick} cardStackItems={displayedItems} handleClickToure={handleClickToure} />
                <BounceInBottom delayVal={0}>
                     {isDesktop && cardStackItems.length > 3 && (
                          <button
