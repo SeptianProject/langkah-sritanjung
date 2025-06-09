@@ -37,7 +37,7 @@ const CardStack = ({ cardStackItems }: CardStackProps) => {
                <Slider speed={500} infinite={false} dots={false}
                     slidesToShow={isDesktop ? 3 : isTablet ? 2 : 1}
                     slidesToScroll={isDesktop ? 3 : isTablet ? 2 : 1}>
-                    {cardStackItems.item.value.map((item, index) => (
+                    {cardStackItems?.item?.value?.map((item, index) => (
                          <div key={index} className='px-2 transition-all duration-500' >
                               <div className='relative bg-cover bg-center w-full min-h-96 xs:min-h-[26rem]  xl:min-h-[30rem]' style={{ backgroundImage: `url(${item.img})` }}>
                                    <div className='absolute top-0 left-0 bg-primary py-2 px-3 rounded-br-2xl'>

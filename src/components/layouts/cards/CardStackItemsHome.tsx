@@ -1,20 +1,13 @@
+import { Destination } from "../../../types/common"
 import ButtonSecondary from "../../elements/button/ButtonSecondary"
 
 type CardStackProps = {
-     cardStackItems: {
-          id: string
-          slug: string
-          name: string
-          image: {
-               url: string
-               name: string
-          }
-     }[]
+     cardStackItems: Destination[]
      handleDetailClick: (slug: string) => void
-     handleClickToure: (slug: string) => void
+     handleClickTour: (slug: string) => void
 }
 
-const CardStackItemsHome = ({ cardStackItems, handleDetailClick, handleClickToure }: CardStackProps) => {
+const CardStackItemsHome = ({ cardStackItems = [], handleDetailClick, handleClickTour }: CardStackProps) => {
      return (
           <>
                {
@@ -22,7 +15,7 @@ const CardStackItemsHome = ({ cardStackItems, handleDetailClick, handleClickTour
                          <div key={item.id} >
                               <div className='relative bg-cover bg-center  
                               min-h-96 md:min-h-[26rem] lg:min-h-[28rem] xl:min-h-[30rem]'
-                                   style={{ backgroundImage: `url(${item.image.url})` }}>
+                                   style={{ backgroundImage: `url(${item.image})` }}>
                                    <div className='absolute top-0 left-0 bg-primary py-2 px-3 rounded-br-2xl'>
                                         <h4 className='text-white text-sm'>{item.name}</h4>
                                    </div>
@@ -30,7 +23,7 @@ const CardStackItemsHome = ({ cardStackItems, handleDetailClick, handleClickTour
                                         <h2 className='text-lg font-semibold text-white'>{item.name}</h2>
                                         <div className='flex w-full items-center justify-center gap-5'>
                                              <ButtonSecondary text='Lihat Detail' onClick={() => handleDetailClick(item.slug)} />
-                                             <ButtonSecondary text='Mulai Tur' onClick={() => handleClickToure(item.slug)} />
+                                             <ButtonSecondary text='Mulai Tur' onClick={() => handleClickTour(item.slug)} />
                                         </div>
                                    </div>
                               </div>

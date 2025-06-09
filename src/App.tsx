@@ -8,11 +8,14 @@ import TourPage from "./components/pages/TourPage"
 import LoadingMapLocation from "./components/elements/LoadingMapLocation"
 import { useEffect, useState } from "react"
 import LoadingSplash from "./components/pages/LoadingSplash"
+import { assets } from "./assets/asset"
+import ChatBot from "./components/elements/ChatBot"
 
 const App = () => {
   const location = useLocation()
   const [isPageLoading, setIsPageLoading] = useState(false)
   const [isInitialLoading, setIsInitialLoading] = useState(true)
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,17 +33,25 @@ const App = () => {
     location.pathname.startsWith('/loading-tour/') || isPageLoading
 
   return (
-    <section className="container max-w-full overflow-hidden selection:text-white selection:bg-secondary scroll-smooth">
+    <section className="container max-w-full overflow-hidden scroll-smooth">
       {!hideNavbarAndFooter && <Navbar />}
       <Routes>
         <Route path="*" element={<Navigate to={'/'} replace />} />
         <Route path="/" element={<HomePage />} />
-        <Route path="/detail/:slug" element={<DetailPage setIsLoading={setIsPageLoading} />} />
         <Route path="/loading-tour/:slug" element={<LoadingMapLocation />} />
         <Route path="/tour-guide/:destination" element={<TourPage />} />
-        <Route path="/detail/:slug/:type/:name" element={<RecomendationPage setIsLoading={setIsPageLoading} />} />
+        <Route path="/detail" >
+          <Route path=":slug" element={<DetailPage />} />
+          <Route path=":slug/:type/:typeSlug" element={<RecomendationPage setIsLoading={setIsPageLoading} />} />
+        </Route>
       </Routes>
       {!hideNavbarAndFooter && <Footer />}
+      <div className="fixed bottom-2 right-4 z-50">
+        <button onClick={() => setIsChatOpen(!isChatOpen)} className="rounded-full">
+          <img src={assets.chatBot} alt="ChatAI" className="size-11 md:size-12" />
+        </button>
+        <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
+      </div>
     </section>
   )
 }

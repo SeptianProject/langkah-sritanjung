@@ -2,10 +2,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import TextDetailRekomen from "../elements/text/TextDetailRekomen"
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { baseUrl } from "../elements/Core";
 import Loading from "react-loading";
+import { fetchResource } from "../../services/apiService";
+import { Destination } from "../../types/common";
+import { useQuery } from "@tanstack/react-query";
 
+// Clean up interface - make it more consistent with the data structure
 interface RecommendationDetail {
      name: string,
      desc: string,
@@ -13,16 +15,13 @@ interface RecommendationDetail {
      telp: string,
      price: string,
      url: string,
-     image: {
-          url: string,
-          name: string
-     }
+     image: string
 }
 
 type ParamsType = {
      slug: string
      type: string
-     name: string
+     typeSlug: string
 }
 
 interface LoadingProps {
@@ -30,60 +29,70 @@ interface LoadingProps {
 }
 
 const DetailRekom = ({ setIsLoading }: LoadingProps) => {
-     const { slug, type, name } = useParams<ParamsType>()
-     const [recommendation, setRecommendation] = useState<RecommendationDetail | null>(null);
-     const [loading, setLoading] = useState(true)
+     const { slug, type, typeSlug } = useParams<ParamsType>()
      const navigate = useNavigate()
+     const [recommendation, setRecommendation] = useState<RecommendationDetail | null>(null)
+
+     const { data, isLoading } = useQuery<Destination>({
+          queryKey: ['destinations', slug],
+          queryFn: async () => fetchResource('destinations', slug),
+          enabled: !!slug,
+     })
 
      useEffect(() => {
           const fetchDetailData = async () => {
                setIsLoading(true)
-               setLoading(true)
                try {
-                    const response = await axios.get(`${baseUrl}/destinasi-wisatas/${slug}`);
-                    const data = response.data.data.attributes
-
                     let selectedRecommendation
                     switch (type) {
-                         case 'transportasi':
-                              selectedRecommendation = data.transportasis.data.find((item: any) => item.attributes.slug === name);
+                         case 'transportation':
+                              selectedRecommendation = data?.destinations_transportations?.find((item) => item.transportation.slug === typeSlug);
                               break;
                          case 'homestay':
-                              selectedRecommendation = data.homestays.data.find((item: any) => item.attributes.slug === name);
+                              selectedRecommendation = data?.destinations_homestays?.find((item) => item.homestay.slug === typeSlug);
                               break;
-                         case 'kuliner':
-                              selectedRecommendation = data.kuliners.data.find((item: any) => item.attributes.slug === name);
+                         case 'cullinary':
+                              selectedRecommendation = data?.destinations_culinaries?.find((item) => item.culinary.slug === typeSlug);
                               break;
                          default:
-                              throw new Error('Invalid recommendation type');
+                              throw new Error(`Invalid recommendation type: ${type}`);
                     }
 
                     if (selectedRecommendation) {
-                         setRecommendation({
-                              name: selectedRecommendation.attributes.name,
-                              desc: selectedRecommendation.attributes.description,
-                              address: selectedRecommendation.attributes.address,
-                              telp: selectedRecommendation.attributes.noTelp,
-                              price: selectedRecommendation.attributes.price,
-                              url: selectedRecommendation.attributes.url,
-                              image: {
-                                   url: selectedRecommendation.attributes.image.data.attributes.url,
-                                   name: selectedRecommendation.attributes.image.data.attributes.name
-                              }
-                         })
+                         let item;
+                         if (type === 'transportation') {
+                              item = (selectedRecommendation as { transportation: any }).transportation;
+                         } else if (type === 'homestay') {
+                              item = (selectedRecommendation as { homestay: any }).homestay;
+                         } else if (type === 'cullinary') {
+                              item = (selectedRecommendation as { culinary: any }).culinary;
+                         }
+
+                         if (item) {
+                              setRecommendation({
+                                   name: item.name,
+                                   desc: item.description,
+                                   address: item.address,
+                                   telp: item.telephone,
+                                   price: item.price,
+                                   url: item.url,
+                                   image: item.image
+                              });
+                         }
                     }
                } catch (error) {
                     console.error('Error fetching detail data:', error);
                } finally {
                     setIsLoading(false)
-                    setLoading(false)
                }
           };
 
-          fetchDetailData();
-     }, [slug, type, name, setIsLoading]);
+          if (data) {
+               fetchDetailData();
+          }
+     }, [data, slug, type, typeSlug, setIsLoading]); // Fixed dependency array
 
-     if (!recommendation || loading) {
+     if (!recommendation || isLoading) {
           return <div>
                <Loading className="min-h-screen flex justify-center items-center m-auto"
                     color="#EA8104"
@@ -98,7 +107,7 @@ const DetailRekom = ({ setIsLoading }: LoadingProps) => {
           <div className="p-10 flex flex-col gap-y-10 lg:flex-row lg:gap-x-20 xl:gap-x-20
           lg:justify-between lg:min-h-screen max-w-full xl:px-20">
                <div className="lg:w-full lg:h-full lg:m-auto">
-                    <img src={recommendation.image.url} alt={recommendation.image.name}
+                    <img src={recommendation.image} alt={recommendation.name}
                          className="size-80 xs:w-full xs:m-0 lg:w-full lg:h-[30rem]
                          object-cover object-center rounded-xl transition-all duration-700"/>
                </div>
