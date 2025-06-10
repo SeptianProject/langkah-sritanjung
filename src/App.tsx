@@ -8,14 +8,14 @@ import TourPage from "./components/pages/TourPage"
 import LoadingMapLocation from "./components/elements/LoadingMapLocation"
 import { useEffect, useState } from "react"
 import LoadingSplash from "./components/pages/LoadingSplash"
-import { assets } from "./assets/asset"
-import ChatBot from "./components/elements/ChatBot"
+// import { assets } from "./assets/asset"
+// import ChatBot from "./components/elements/ChatBot"
 
 const App = () => {
   const location = useLocation()
   const [isPageLoading, setIsPageLoading] = useState(false)
   const [isInitialLoading, setIsInitialLoading] = useState(true)
-  const [isChatOpen, setIsChatOpen] = useState(false)
+  // const [isChatOpen, setIsChatOpen] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -46,12 +46,12 @@ const App = () => {
         </Route>
       </Routes>
       {!hideNavbarAndFooter && <Footer />}
-      <div className="fixed bottom-2 right-4 z-50">
+      {/* <div className="fixed bottom-2 right-4 z-50">
         <button onClick={() => setIsChatOpen(!isChatOpen)} className="rounded-full">
           <img src={assets.chatBot} alt="ChatAI" className="size-11 md:size-12" />
         </button>
         <ChatBot isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
-      </div>
+      </div> */}
     </section>
   )
 }

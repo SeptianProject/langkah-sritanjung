@@ -12,7 +12,6 @@ export const axiosInstance = axios.create({
 export const fetchResource = async (resource: string, slug?: string) => {
      try {
           const response = await axiosInstance.get(`/${resource}${slug ? `/${slug}` : ''}`);
-          console.log('API Responses:', response.data);
           return response.data;
      } catch (error) {
           console.error('API request failed:', error);
