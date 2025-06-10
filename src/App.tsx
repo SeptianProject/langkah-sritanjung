@@ -8,6 +8,7 @@ import TourPage from "./components/pages/TourPage"
 import LoadingMapLocation from "./components/elements/LoadingMapLocation"
 import { useEffect, useState } from "react"
 import LoadingSplash from "./components/pages/LoadingSplash"
+import MapTest from "./components/elements/MapTest" // Tambahkan import
 // import { assets } from "./assets/asset"
 // import ChatBot from "./components/elements/ChatBot"
 
@@ -44,6 +45,7 @@ const App = () => {
           <Route path=":slug" element={<DetailPage />} />
           <Route path=":slug/:type/:typeSlug" element={<RecomendationPage setIsLoading={setIsPageLoading} />} />
         </Route>
+        <Route path="/map-test" element={<MapTest />} /> {/* Tambahkan rute pengujian */}
       </Routes>
       {!hideNavbarAndFooter && <Footer />}
       {/* <div className="fixed bottom-2 right-4 z-50">
